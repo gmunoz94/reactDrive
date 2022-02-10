@@ -7,6 +7,9 @@ const typeDefs = gql`
         patientLastName: String
         dateOfBirth: Date
         address: String
+        city: String
+        state: String
+        zipCode: Number
         phoneNumber: Number
     }
 
