@@ -47,7 +47,7 @@ const typeDefs = gql`
     }
 
     type Mutation {
-        addPatient(patientFirstName: String!, patientLastName: String!, dateOfBirth: Date!, address: String, phoneNumber, Number!): Patient
+        addPatient(patientFirstName: String!, patientLastName: String!, dateOfBirth: Date!, address: String, city: String, state: String, zipCode: Number, phoneNumber, Number!): Patient
     }
 `;
 

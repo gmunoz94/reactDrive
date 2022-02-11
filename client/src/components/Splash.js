@@ -1,6 +1,7 @@
+import { useMutation } from '@apollo/client';
 import React, { useState } from 'react'
 import { Form, Row, Container, Col, Button } from 'react-bootstrap';
-import { createPatient } from '../utils/api';
+import { CREATE_PATIENT } from '../utils/mutations';
 
 const Splash = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,8 @@ const Splash = () => {
     zipCode: "",
     phoneNumber: ""
   });
+
+  const [createPatient, { error }] = useMutation(CREATE_PATIENT);
   
   const handleInputChange = (event) => {
     const { name, value } = event.target;
