@@ -5,49 +5,56 @@ const typeDefs = gql`
         _id: ID
         patientFirstName: String
         patientLastName: String
-        dateOfBirth: Date
+        dateOfBirth: String
         address: String
         city: String
         state: String
-        zipCode: Number
-        phoneNumber: Number
+        zipCode: Int
+        phoneNumber: String
     }
 
     type GlOrder {
         _id: ID
         patient: [Patient]
-        orderDate: Date
-        frame: String
-        lensType: String,
-        frameLocation: String,
-        moreOrders: String,
-        lensLab: String,
-        lensOrdered: String,
-        arrivalStatus: String,
-        readyStatus: String,
-        receivedStatus: String,
-        dispenseStatus: String,
+        orderDate: String!
+        frame: String!
+        lensType: String!
+        frameLocation: String!
+        moreOrders: String!
+        lensLab: String!
+        lensOrdered: String!
+        arrivalStatus: String
+        readyStatus: String
+        receivedStatus: String
+        dispenseStatus: String
     }
 
     type ClOrder {
         _id: ID
         patient: [Patient]
-        orderDate: Date,
-        ODboxes: Number,
-        ODboxType: String,
-        OSboxes: Number,
-        OSboxType: String,
-        moreOrders: String,
-        lensLab: String,
-        lensOrdered: String,
-        arrivalStatus: String,
-        readyStatus: String,
-        receivedStatus: String,
-        dispenseStatus: String,
+        orderDate: String!
+        ODboxes: Int
+        ODboxType: String
+        OSboxes: Int
+        OSboxType: String
+        moreOrders: String!
+        lensLab: String!
+        lensOrdered: String!
+        arrivalStatus: String
+        readyStatus: String
+        receivedStatus: String
+        dispenseStatus: String
+    }
+
+    type Query {
+        patient: [Patient]
+        getPatient(_id: ID): Patient
+        getGlOrders: [GlOrder]
+        getClOrders: [ClOrder]
     }
 
     type Mutation {
-        addPatient(patientFirstName: String!, patientLastName: String!, dateOfBirth: Date!, address: String, city: String, state: String, zipCode: Number, phoneNumber, Number!): Patient
+        addPatient(patientFirstName: String!, patientLastName: String!, dateOfBirth: String!, address: String, city: String, state: String, zipCode: Int, phoneNumber: String!): Patient
     }
 `;
 

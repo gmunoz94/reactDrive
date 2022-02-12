@@ -20,14 +20,16 @@ const Splash = () => {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
-    console.log(formData)
   };
-
+  
   const handleFormSubmit = async (event) => {
+    console.log(formData)
     event.preventDefault();
 
     try {
-      const res = await createPatient(formData);
+      const res = await createPatient({
+        variables: { formData },
+      });
 
       if (!res.ok) {
         throw new Error('something went wrong!');

@@ -3,6 +3,9 @@ const { Patient, GlOrder, ClOrder } = require('../models')
 
 const resolvers = {
     Query: {
+        patient: async () => {
+            return Patient.find({});
+        },
         getPatient: async ( parent, {_id} ) => {
             return Patient.findOne({ _id: _id});
         },
@@ -19,7 +22,7 @@ const resolvers = {
     },
 
     Mutation: {
-        addPatient: async (parent, args) => {
+        addPatient: async (parent, args ) => {
             const patient = await Patient.create(args);
 
             return patient;
