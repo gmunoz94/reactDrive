@@ -1,36 +1,45 @@
-const { Schema, model } = require('mongoose');
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/connection');
 
-const patientSchema = new Schema({
-    patientFirstName: {
-        type: String,
-        required: "Need First Name",
+class patient extends Model {}
+
+patient.init(
+    {
+        patient_id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        firstName: {
+            type: DataTypes.STRING
+        },
+        lastName: {
+            type: DataTypes.STRING
+        },
+        dateOfBirth: {
+            type: DataTypes.STRING
+        },
+        phoneNumber: {
+            type: DataTypes.STRING
+        },
+        address: {
+            type: DataTypes.STRING
+        },
+        city: {
+            type: DataTypes.STRING
+        },
+        state: {
+            type: DataTypes.STRING
+        },
+        zipCode: {
+            type: DataTypes.STRING
+        }
     },
-    patientLastName: {
-        type: String,
-        required: "Need Last Name",
-    },
-    dateOfBirth: {
-        type: Date,
-        required: "Date of Birth required.",
-    },
-    address: {
-        type: String,
-    },
-    city: {
-        type: String,
-    },
-    state: {
-        type: String,
-    },
-    zipCode: {
-        type: Number,
-    },
-    phoneNumber: {
-        type: Number,
-        required: "Need Phone Number"
+    {
+        sequelize,
+        underscored: true,
+        modelName: 'patient'
     }
-})
+)
 
-const Patient = model('Patient', patientSchema);
-
-module.exports = Patient;
+module.exports = patient

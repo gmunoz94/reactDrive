@@ -1,10 +1,19 @@
-const mongoose = require('mongoose');
+const Sequelize = require('sequelize');
+require('dotenv').config();
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/reactDrive', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-});
+const sequelize = new Sequelize(
+    // DB Name
+    'newcruddb',
+    // DB User
+    'root',
+    // DB Password
+    'root',
+    {
+        // DB Location
+        host: 'localhost',
+        dialect: 'mysql',
+        port: 3306
+    }
+);
 
-module.exports = mongoose.connection;
+module.exports = sequelize;

@@ -1,64 +1,77 @@
-const { Schema, model } = require('mongoose');
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/connection');
 
-const glOrderSchema = new Schema({
-    patient: [
-        {
-            patientFirstName: {
-                type: String
-            },
-            patientLastName: {
-                type: String
-            },
-            dateOfBirth: {
-                type: Date,
-            },
-            phoneNumber: {
-                type: Number,
+class glOrder extends Model {}
+
+glOrder.init(
+    {
+        firstName: {
+            type: DataTypes.STRING,
+            references: {
+                model: 'Patient',
+                key: 'firstName'
             }
-        }
-    ],
-    orderDate: {
-        type: Date,
-        required: true,
+        },
+        lastName: {
+            type: DataTypes.STRING,
+            references: {
+                model: 'Patient',
+                key: 'lastName'
+            }
+        },
+        dateOfBirth: {
+            type: DataTypes.STRING,
+            references: {
+                model: 'Patient',
+                key: 'dateOfBirth'
+            }
+        },
+        phoneNumber: {
+            type: DataTypes.STRING,
+            references: {
+                model: 'Patient',
+                key: 'phoneNumber'
+            }
+        },
+        orderDate: {
+            type: DataTypes.DATEONLY
+        },
+        frame: {
+            type: DataTypes.STRING
+        },
+        lensType: {
+            type: DataTypes.STRING
+        },
+        location: {
+            type: DataTypes.STRING
+        },
+        moreOrders: {
+            type: DataTypes.STRING
+        },
+        lab: {
+            type: DataTypes.STRING
+        },
+        ordered: {
+            type: DataTypes.STRING
+        },
+        arrival: {
+            type: DataTypes.STRING
+        },
+        ready: {
+            type: DataTypes.STRING
+        },
+        received: {
+            type: DataTypes.STRING
+        },
+        dispensed: {
+            type: DataTypes.STRING
+        },
     },
-    frame: {
-        type: String,
-        required: true
-    },
-    lensType: {
-        type: String,
-        required: true,
-    },
-    frameLocation: {
-        type: String,
-        required: true,
-    },
-    moreOrders: {
-        type: String,
-        required: true,
-    },
-    lensLab: {
-        type: String,
-        required: true,
-    },
-    lensOrdered: {
-        type: String,
-        required: true,
-    },
-    arrivalStatus: {
-        type: String,
-    },
-    readyStatus: {
-        type: String,
-    },
-    receivedStatus: {
-        type: String,
-    },
-    dispenseStatus: {
-        type: String,
+    {
+        sequelize,
+        underscored: true,
+        modelName: 'glOrder'
     }
-})
+)
 
-const GlOrder = model('GlOrder', glOrderSchema);
-
-module.exports = GlOrder;
+module.exports = glOrder

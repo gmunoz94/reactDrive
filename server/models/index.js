@@ -1,5 +1,19 @@
-const Patient = require('./Patient');
-const GlOrder = require('./GlOrder');
-const ClOrder = require('./ClOrder');
+const patient = require('./patient');
+const glOrder = require('./glOrder');
+const clOrder = require('./clOrder');
 
-module.exports = { Patient, GlOrder, ClOrder };
+patient.hasMany(glOrder, {
+    foreignKey: 'patient_id',
+})
+patient.hasMany(clOrder, {
+    foreignKey: 'patient_id',
+})
+
+glOrder.belongsTo(Patient, {
+    foreignKey: 'patient_id',
+})
+clOrder.belongsTo(Patient, {
+    foreignKey: 'patient_id',
+})
+
+module.exports = { patient, glOrder, clOrder };

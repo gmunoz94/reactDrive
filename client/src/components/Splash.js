@@ -1,12 +1,11 @@
-import { useMutation } from '@apollo/client';
 import React, { useState } from 'react'
 import { Form, Row, Container, Col, Button } from 'react-bootstrap';
-import { CREATE_PATIENT } from '../utils/mutations';
+import Axios from 'axios'
 
 const Splash = () => {
   const [formData, setFormData] = useState({
-    patientFirstName: "",
-    patientLastName: "",
+    firstName: "",
+    lastName: "",
     dateOfBirth: "",
     address: "",
     city: "",
@@ -15,7 +14,6 @@ const Splash = () => {
     phoneNumber: ""
   });
 
-  const [createPatient, { error }] = useMutation(CREATE_PATIENT);
   
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -26,25 +24,22 @@ const Splash = () => {
     console.log(formData)
     event.preventDefault();
 
-    try {
-      const res = await createPatient({
-        variables: { formData },
-      });
-
-      if (!res.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      const patient = await res.json();
-      console.log(patient);
-      // history.push(`/matchup/${matchup._id}`);
-    } catch (err) {
-      console.error(err);
-    }
+    Axios.post('http://localhost:3001/api/patients', {
+      firstName: formData.firstName, 
+      lastName: formData.lastName, 
+      dateOfBirth: formData.dateOfBirth,
+      address: formData.address,
+      city: formData.city,
+      state: formData.state,
+      zipCode: formData.zipCode, 
+      phoneNumber: formData.phoneNumber
+    }).then(() => {
+      alert('Patient Added')
+    })
 
     setFormData({
-      patientFirstName: "",
-      patientLastName: "",
+      firstName: "",
+      lastName: "",
       dateOfBirth: "",
       address: "",
       city: "",
@@ -62,11 +57,11 @@ const Splash = () => {
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formFirstName">
                 <Form.Label>First Name</Form.Label>
-                <Form.Control type="text" placeholder="First name" name='patientFirstName' onChange={handleInputChange} />
+                <Form.Control type="text" placeholder="First name" name='firstName' onChange={handleInputChange} />
               </Form.Group>
               <Form.Group as={Col} controlId="formLastName">
                 <Form.Label>Last Name</Form.Label>
-                <Form.Control type="text" placeholder="Last name" name='patientLastName' onChange={handleInputChange} />
+                <Form.Control type="text" placeholder="Last name" name='lastName' onChange={handleInputChange} />
               </Form.Group>
             </Row>
             <Row>

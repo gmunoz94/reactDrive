@@ -1,66 +1,64 @@
-const { Schema, model } = require('mongoose');
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/connection');
 
-const clOrderSchema = new Schema({
-    patient: [
-        {
-            patientFirstName: {
-                type: String
-            },
-            patientLastName: {
-                type: String
-            },
-            dateOfBirth: {
-                type: Date,
-            },
-            phoneNumber: {
-                type: Number,
-            }
-        }
-    ],
-    orderDate: {
-        type: Date,
-        required: true,
-    },
-    ODboxes: {
-        type: Number,
-        default: 0
-    },
-    ODboxType: {
-        type: String,
-    },
-    OSboxes: {
-        type: Number,
-        default: 0
-    },
-    OSboxType: {
-        type: String,
-    },
-    moreOrders: {
-        type: String,
-        required: true,
-    },
-    lensLab: {
-        type: String,
-        required: true,
-    },
-    lensOrdered: {
-        type: String,
-        required: true,
-    },
-    arrivalStatus: {
-        type: String,
-    },
-    readyStatus: {
-        type: String,
-    },
-    receivedStatus: {
-        type: String,
-    },
-    dispenseStatus: {
-        type: String,
-    },
-})
+class clOrder extends Model {}
 
-const ClOrder = model('ClOrder', clOrderSchema);
+clOrder.init(
+    {
+        firstName: {
+            type: DataTypes.STRING
+        },
+        lastName: {
+            type: DataTypes.STRING
+        },
+        dateOfBirth: {
+            type: DataTypes.STRING
+        },
+        phoneNumber: {
+            type: DataTypes.STRING
+        },
+        orderDate: {
+            type: DataTypes.DATEONLY
+        },
+        odBoxes: {
+            type: DataTypes.INTEGER
+        },
+        odBoxType: {
+            type: DataTypes.STRING
+        },
+        osBoxes: {
+            type: DataTypes.INTEGER
+        },
+        osBoxType: {
+            type: DataTypes.STRING
+        },
+        moreOrders: {
+            type: DataTypes.STRING
+        },
+        lab: {
+            type: DataTypes.STRING
+        },
+        ordered: {
+            type: DataTypes.STRING
+        },
+        arrival: {
+            type: DataTypes.STRING
+        },
+        ready: {
+            type: DataTypes.STRING
+        },
+        received: {
+            type: DataTypes.STRING
+        },
+        dispensed: {
+            type: DataTypes.STRING
+        },
+    },
+    {
+        sequelize,
+        underscored: true,
+        modelName: 'clOrder'
+    }
+)
 
-module.exports = ClOrder;
+module.exports = clOrder
