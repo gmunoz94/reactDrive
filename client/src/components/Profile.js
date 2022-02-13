@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Form, Row, Container, Col, Button } from 'react-bootstrap';
+import { Form, Row, Col, Button } from 'react-bootstrap';
 import Axios from 'axios';
 
 const Profile = () => {
@@ -23,14 +23,31 @@ const Profile = () => {
     Axios.get(`http://localhost:3001/api/patients/${currPt}`).then((response) => {
       setThisPt(response.data[0])
     })
-  }, [])
+  }, [currPt])
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setThisPt({ ...thisPt, [name]: value });
   };
 
-  const handleFormSubmit = async (event) => {
+  const handlePatientUpdate = async (event) => {
+    event.preventDefault();
+
+    
+    Axios.put(`http://localhost:3001/api/patients/${thisPt.patient_id}`, {
+      firstName: thisPt.firstName, 
+      lastName: thisPt.lastName, 
+      dateOfBirth: thisPt.dateOfBirth,
+      address: thisPt.address,
+      city: thisPt.city,
+      state: thisPt.state,
+      zipCode: thisPt.zipCode, 
+      phoneNumber: thisPt.phoneNumber
+    }).then(() => {
+      Axios.get(`http://localhost:3001/api/patients/${thisPt.patient_id}`).then((response) => {
+        setThisPt(response.data[0])
+      })
+    })
   }
 
   return( 
@@ -56,7 +73,7 @@ const Profile = () => {
               <div className="card mb-3">
                 <div className="card-body">
                   <Row>
-                    <Form onSubmit={handleFormSubmit}>
+                    <Form onSubmit={handlePatientUpdate}>
                       <Row className="mb-3">
                         <Form.Group as={Col} controlId="formFirstName">
                           <Form.Label>First Name</Form.Label>
@@ -148,7 +165,7 @@ const Profile = () => {
                         </Form.Group>
                       </Row>
                       <Button variant="secondary" type="submit">
-                        Submit
+                        Save Changes
                       </Button>
                     </Form>
                   </Row>

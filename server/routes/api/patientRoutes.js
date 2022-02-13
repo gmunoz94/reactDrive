@@ -103,4 +103,23 @@ router.get('/:patient_id', (req, res) => {
     });
 });
 
+router.put('/:patient_id', (req, res) => {
+    patient.update({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        dateOfBirth: req.body.dateOfBirth,
+        phoneNumber: req.body.phoneNumber,
+        address: req.body.address,
+        city: req.body.city,
+        state: req.body.state,
+        zipCode: req.body.zipCode
+        },
+        {
+            where: {
+                patient_id: req.params.patient_id,
+            },
+        }
+    )
+})
+
 module.exports = router;
