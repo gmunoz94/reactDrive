@@ -5,7 +5,7 @@ const sequelize = require('./config/connection');
 const routes = require('./routes');
 
 
-const Patient = require('./models/Patient');
+const patient = require('./models/patient');
 const glOrder = require('./models/glOrder');
 const clOrder = require('./models/clOrder');
 

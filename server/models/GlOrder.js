@@ -7,31 +7,15 @@ glOrder.init(
     {
         firstName: {
             type: DataTypes.STRING,
-            references: {
-                model: 'Patient',
-                key: 'firstName'
-            }
         },
         lastName: {
             type: DataTypes.STRING,
-            references: {
-                model: 'Patient',
-                key: 'lastName'
-            }
         },
         dateOfBirth: {
             type: DataTypes.STRING,
-            references: {
-                model: 'Patient',
-                key: 'dateOfBirth'
-            }
         },
         phoneNumber: {
             type: DataTypes.STRING,
-            references: {
-                model: 'Patient',
-                key: 'phoneNumber'
-            }
         },
         orderDate: {
             type: DataTypes.DATEONLY

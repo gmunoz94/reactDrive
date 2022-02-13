@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Form, Row, Container, Col, Button } from 'react-bootstrap';
 import Axios from 'axios'
 
-const Splash = () => {
+const AddPatient = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -154,4 +154,4 @@ const Splash = () => {
   );
 };
 
-export default Splash;
+export default AddPatient;

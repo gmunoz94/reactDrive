@@ -6,7 +6,7 @@ const HeadBar = () => {
         <>
         <Navbar className='mb-5 bg-primary'>
             <Container>
-                <Navbar.Brand href='/'>IMAGine Drive</Navbar.Brand>
+                <Navbar.Brand href='/'>GIM Drive</Navbar.Brand>
                 <Navbar.Toggle aria-controls='basic-navbar-nav' />
                 <Navbar.Collapse id='basic-navbar-nav'>
                     <Nav className='me-auto'>

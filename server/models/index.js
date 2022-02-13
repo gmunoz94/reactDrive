@@ -9,10 +9,10 @@ patient.hasMany(clOrder, {
     foreignKey: 'patient_id',
 })
 
-glOrder.belongsTo(Patient, {
+glOrder.belongsTo(patient, {
     foreignKey: 'patient_id',
 })
-clOrder.belongsTo(Patient, {
+clOrder.belongsTo(patient, {
     foreignKey: 'patient_id',
 })
 

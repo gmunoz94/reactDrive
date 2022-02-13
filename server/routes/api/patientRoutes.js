@@ -1,9 +1,9 @@
 const router = require('express').Router();
 
-const Patient = require('../../models/Patient');
+const patient = require('../../models/patient');
 
 router.post('/', (req, res) => {
-    Patient.create({
+    patient.create({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         dateOfBirth: req.body.dateOfBirth,
@@ -22,7 +22,7 @@ router.post('/', (req, res) => {
 })
 
 router.get('/all', (req, res) => {
-    Patient.findAll({
+    patient.findAll({
         order: ['lastName'],
     }).then((patientData) => {
         res.json(patientData);
