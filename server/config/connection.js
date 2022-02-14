@@ -3,11 +3,11 @@ require('dotenv').config();
 
 const sequelize = new Sequelize(
     // DB Name
-    'newcruddb',
+    process.env.DB_NAME,
     // DB User
-    'root',
+    process.env.DB_USER,
     // DB Password
-    'root',
+    process.env.DB_PASSWORD,
     {
         // DB Location
         host: 'localhost',
