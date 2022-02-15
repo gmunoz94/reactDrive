@@ -14,7 +14,7 @@
     "seed": "cd server && npm run seed",
     "build": "cd client && npm run build"
   },
-  "author": "Gerardo Munoz, Isack Ramirez, Marco Rodriguez",
+  "author": "",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.1.0"

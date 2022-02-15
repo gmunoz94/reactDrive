@@ -67,7 +67,7 @@ const SearchPatient = () =>{
 	};
 
 	return(
-		<div>
+		<div className="col-lg-9 mt-5">
 			<Container className='bg-secondary'>
 				<Row>
 					<Form onSubmit={handleFormSubmit}>

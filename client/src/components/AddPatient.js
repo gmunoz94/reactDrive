@@ -50,8 +50,8 @@ const AddPatient = () => {
   };
   
   return (
-    <div>
-      <Container>
+    <div className="col-lg-9">
+      <Container className='p-5'>
         <Row>
           <Form onSubmit={handleFormSubmit}>
             <Row className="mb-3">

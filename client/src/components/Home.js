@@ -1,11 +1,11 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import '../styles/main.css'
-const Main = () => {
+const Home = () => {
 
 
   return (
-    <div>
+    <div className="col-lg-9">
        <Container className="px-4 py-5" id="home-cards">
             <div className="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
             <div className="col">
@@ -36,4 +36,4 @@ const Main = () => {
     </div>
   );
 };
-export default Main;
+export default Home;
