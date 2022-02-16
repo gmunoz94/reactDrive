@@ -19,12 +19,10 @@ const SearchPatient = () =>{
 	
 	const handleFormSubmit = async (event) => {
 		event.preventDefault();
-		console.log(searchData);
 		
 		if(searchData.lastName) {
 			Axios.get(`http://localhost:3001/api/patients/searchLast/${searchData.lastName}`)
 			.then((response) => {
-				console.log(response.data);
 				setRows(response.data);
 			})
 		}
@@ -61,7 +59,6 @@ const SearchPatient = () =>{
 	const history = useHistory();
 	
 	const handleRowClick = (event) => {
-		console.log(event.target)
 		let path = `/patient/profile/${event.target.value}`
 		history.push(path);
 	};

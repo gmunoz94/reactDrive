@@ -25,7 +25,7 @@ function App() {
           <Route exact path="/patient/search">
             <SearchPatient />
           </Route>
-          <Route exact path="/patient/profile/:patient_id">
+          <Route path="/patient/profile/:patient_id">
             <Profile />
           </Route>
         </Row>
