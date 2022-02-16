@@ -8,6 +8,7 @@ const routes = require('./routes');
 const patient = require('./models/patient');
 const glOrder = require('./models/glOrder');
 const clOrder = require('./models/clOrder');
+const frame = require('./models/frame');
 
 const app = express();
 const PORT = process.env.PORT || 3001;

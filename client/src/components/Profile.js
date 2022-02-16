@@ -65,11 +65,11 @@ const Profile = () => {
               {state === 'profile' && (
                 <ProfileInfo thisPatient={thisPt} setThisPt={setThisPt} currPt={currPt} />
               )}
-              {state === 'allOrders' && <GlOrderPage />}
-              {state === 'pendingOrders' && <GlOrderPage />}
-              {state === 'completeOrders' && <GlOrderPage />}
-              {state === 'glNew' && <GlOrderPage />}
-              {state === 'clNew' && <GlOrderPage />}
+              {state === 'allOrders' && <GlOrderPage currPt={currPt} />}
+              {state === 'pendingOrders' && <GlOrderPage currPt={currPt} />}
+              {state === 'completeOrders' && <GlOrderPage currPt={currPt} />}
+              {state === 'glNew' && <GlOrderPage currPt={currPt} />}
+              {state === 'clNew' && <GlOrderPage currPt={currPt} />}
             </div>
           </div>
       </section>

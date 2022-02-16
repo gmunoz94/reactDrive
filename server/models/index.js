@@ -1,6 +1,7 @@
 const patient = require('./patient');
 const glOrder = require('./glOrder');
 const clOrder = require('./clOrder');
+const frame = require('./frame');
 
 patient.hasMany(glOrder, {
     foreignKey: 'patient_id',
@@ -16,4 +17,4 @@ clOrder.belongsTo(patient, {
     foreignKey: 'patient_id',
 })
 
-module.exports = { patient, glOrder, clOrder };
+module.exports = { patient, glOrder, clOrder, frame };

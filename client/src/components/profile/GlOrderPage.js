@@ -1,106 +1,95 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form, Row, Col, Button } from 'react-bootstrap';
+import Axios from 'axios';
 
-
-const GlOrderPage = () => {
+const GlOrderPage = (props) => {
     const [glOrder, setGlOrder] = useState({
-        
+        patient_id: props.currPt,
+        orderDate: "",
+        frameBrand: "",
+        frameModel: "",
+        lensType: "",
+        location: "",
+        moreOrders: "",
+        lab: "",
+        ordered: "",
     })
+
+    const [frames, setFrames] = useState([]);
+
+    useEffect(() => {
+      Axios.get(`http://localhost:3001/api/frames`).then((response) => {
+        setFrames(response.data)
+      })
+    }, [])
+
+    const handleOrderSubmit = () => {
+
+    }
+
+    const handleInputChange = (event) => {
+      const { name, value } = event.target;
+      setGlOrder({ ...glOrder, [name]: value });
+    };
 
     return(
         <div className="col-md-9" id="profile">
           <div className="card mb-3">
             <div className="card-body">
               <Row>
-                <Form onSubmit={handlePatientUpdate}>
+                <Form onSubmit={handleOrderSubmit}>
                   <Row className="mb-3">
-                    <Form.Group as={Col} controlId="formFirstName">
-                      <Form.Label>First Name</Form.Label>
-                      <Form.Control type="text" placeholder="First name" name='firstName' value={thisPt.firstName} onChange={handleInputChange} required />
-                    </Form.Group>
-                    <Form.Group as={Col} controlId="formLastName">
-                      <Form.Label>Last Name</Form.Label>
-                      <Form.Control type="text" placeholder="Last name" name='lastName' value={thisPt.lastName} onChange={handleInputChange} required />
-                    </Form.Group>
-                  </Row>
-                  <Row>
                     <Form.Group as={Col} className="mb-3" controlId="formDOB">
-                      <Form.Label>Date Of Birth</Form.Label>
-                      <Form.Control type="date" name='dateOfBirth' value={thisPt.dateOfBirth} onChange={handleInputChange} required />
+                      <Form.Label>Order Date</Form.Label>
+                      <Form.Control type="date" name='orderDate' value={glOrder.orderDate} onChange={handleInputChange} required />
                     </Form.Group>
-                    <Form.Group as={Col} controlId="formNumber">
-                      <Form.Label>Phone Number</Form.Label>
-                      <Form.Control type="number" placeholder="Phone Number" name='phoneNumber' value={thisPt.phoneNumber} onChange={handleInputChange} required />
-                    </Form.Group>
-                  </Row>
-                  <Form.Group className="mb-3" controlId="formAddress">
-                    <Form.Label>Address</Form.Label>
-                    <Form.Control type="text" placeholder="Address" name='address' value={thisPt.address} onChange={handleInputChange} required />
-                  </Form.Group>
-                  <Row className="mb-3">
-                    <Form.Group as={Col} controlId="formCity">
-                      <Form.Label>City</Form.Label>
-                      <Form.Control type="text" placeholder="City" name='city' value={thisPt.city} onChange={handleInputChange} required />
-                    </Form.Group>
-                    <Form.Group as={Col} controlId="formState">
-                      <Form.Label>State</Form.Label>
-                      <Form.Select defaultValue="Select" name='state' value={thisPt.state} onChange={handleInputChange} required >
-                        <option>Choose...</option>
-                        <option value="Alabama">AL : Alabama</option>
-                        <option value="Alaska">AK : Alaska</option>
-                        <option value="Arizona">AZ : Arizona</option>
-                        <option value="Arkansas">AR : Arkansas</option>
-                        <option value="California">CA : California</option>
-                        <option value="Colorado">CO : Colorado</option>
-                        <option value="Connecticut">CT : Connecticut</option>
-                        <option value="Delaware">DE : Delaware</option>
-                        <option value="FLorida">FL : Florida</option>
-                        <option value="Georgia">GA : Georgia</option>
-                        <option value="Hawaii">HI : Hawaii</option>
-                        <option value="Idaho">ID : Idaho</option>
-                        <option value="Illinois">IL : Illinois</option>
-                        <option value="Indiana">IN : Indiana</option>
-                        <option value="Iowa">IA : Iowa</option>
-                        <option value="Kansas">KS : Kansas</option>
-                        <option value="Kentucky">KY : Kentucky</option>
-                        <option value="Lousiana">LA : Louisiana</option>
-                        <option value="Maine">ME : Maine</option>
-                        <option value="Maryland">MD : Maryland</option>
-                        <option value="Massachusetts">MA : Massachusetts</option>
-                        <option value="Michigan">MI : Michigan</option>
-                        <option value="Minnesota">MN : Minnesota</option>
-                        <option value="Mississippi">MS : Mississippi</option>
-                        <option value="Missouri">MO : Missouri</option>
-                        <option value="Montana">MT : Montana</option>
-                        <option value="Nebraska">NE : Nebraska</option>
-                        <option value="Nevada">NV : Nevada</option>
-                        <option value="New Hampshire">NH : New Hampshire</option>
-                        <option value="New Jersey">NJ : New Jersey</option>
-                        <option value="New">NM : New Mexico</option>
-                        <option value="New York">NY : New York</option>
-                        <option value="North Carolina">NC : North Carolina</option>
-                        <option value="North Dakota">ND : North Dakota</option>
-                        <option value="Ohio">OH : Ohio</option>
-                        <option value="Oklahoma">OK : Oklahoma</option>
-                        <option value="Oregon">OR : Oregon</option>
-                        <option value="Pennsylvania">PA : Pennsylvania</option>
-                        <option value="Rhode Island">RI : Rhode Island</option>
-                        <option value="South Carolina">SC : South Carolina</option>
-                        <option value="South Dakota">SD : South Dakota</option>
-                        <option value="Tennessee">TN : Tennessee</option>
-                        <option value="Texas">TX : Texas</option>
-                        <option value="Utah">UT : Utah</option>
-                        <option value="Vermont">VT : Vermont</option>
-                        <option value="Virginia">VA : Virginia</option>
-                        <option value="Washington">WA : Washington</option>
-                        <option value="West Virginia">WV : West Virginia</option>
-                        <option value="Wisconsin">WI : Wisconsin</option>
-                        <option value="Wyoming">WY : Wyoming</option>
+                    <Form.Group as={Col} controlId="formFirstName">
+                      <Form.Label>Frame Brand</Form.Label>
+                      <Form.Select type="text" placeholder="Frame Info" name='frameModel' value={glOrder.frame} onChange={handleInputChange} required>
+                      <option>Choose...</option>
+                      {frames.map((f) => (
+                        <option value={f.frame}>{f.frame}</option>
+                      ))}
                       </Form.Select>
                     </Form.Group>
-                    <Form.Group as={Col} controlId="formZip">
-                      <Form.Label>Zip Code</Form.Label>
-                      <Form.Control type="number" placeholder="Zip Code" name='zipCode' value={thisPt.zipCode} onChange={handleInputChange} required />
+                    <Form.Group as={Col} controlId="formLastName">
+                      <Form.Label>Model Number</Form.Label>
+                      <Form.Control type="text" placeholder="Model Number" name='frameBrand' value={glOrder.frameBrand} onChange={handleInputChange} required />
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="formLastName">
+                      <Form.Label>Lens Type</Form.Label>
+                      <Form.Control type="text" placeholder="Lens Info" name='lensType' value={glOrder.lensType} onChange={handleInputChange} required />
+                    </Form.Group>
+                  </Row>
+                  <Row className='mb-3'>
+                    <Form.Group as={Col}>
+                      <Form.Label>Location</Form.Label>
+                      <Form.Select as={Col} name='location' value={glOrder.location} onChange={handleInputChange} required>
+                        <option>Choose...</option>
+                        <option value="In House">In House</option>
+                        <option value="Outside Lab">Outside Lab</option>
+                      </Form.Select>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Label>More Orders?</Form.Label>
+                      <Form.Select as={Col} name='moreOrders' value={glOrder.moreOrders} onChange={handleInputChange} required >
+                        <option>Choose...</option>
+                        <option value="Yes, Glasses">Yes, Glasses</option>
+                        <option value="Yes, Contacts">Yes, Contacts</option>
+                        <option value="Yes, Family">Yes, Gamily</option>
+                        <option value="No">No</option>
+                      </Form.Select>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Label>Lab</Form.Label>
+                      <Form.Select name='lab' value={glOrder.lab} onChange={handleInputChange} required >
+                        <option>Choose...</option>
+                        <option value="In House">In House</option>
+                        <option value="Walman">Walman</option>
+                        <option value="ABB">ABB</option>
+                        <option value="Oakley">Oakley</option>
+                        <option value="Costa">Costa</option>
+                      </Form.Select>
                     </Form.Group>
                   </Row>
                   <Button variant="secondary" type="submit">

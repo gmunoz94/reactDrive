@@ -5,17 +5,12 @@ class clOrder extends Model {}
 
 clOrder.init(
     {
-        firstName: {
-            type: DataTypes.STRING
-        },
-        lastName: {
-            type: DataTypes.STRING
-        },
-        dateOfBirth: {
-            type: DataTypes.STRING
-        },
-        phoneNumber: {
-            type: DataTypes.STRING
+        patient_id: {
+            type:DataTypes.INTEGER,
+            references: {
+             model: 'patients',
+             key: 'patient_id'
+              } 
         },
         orderDate: {
             type: DataTypes.DATEONLY
