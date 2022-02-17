@@ -12,7 +12,6 @@ const GlOrderPage = (props) => {
         location: "",
         moreOrders: "",
         lab: "",
-        ordered: "",
     })
 
     const [frames, setFrames] = useState([]);
@@ -23,8 +22,21 @@ const GlOrderPage = (props) => {
       })
     }, [])
 
-    const handleOrderSubmit = () => {
+    const handleOrderSubmit = (event) => {
+      event.preventDefault();
 
+      Axios.post(`http://localhost:3001/api/orders/glOrder/${props.currPt}`, {
+        patient_id: glOrder.patient_id,
+        orderDate: glOrder.orderDate,
+        frameBrand: glOrder.frameBrand,
+        frameModel: glOrder.frameModel,
+        lensType: glOrder.lensType,
+        location: glOrder.location,
+        moreOrders: glOrder.moreOrders,
+        lab: glOrder.lab
+      }).then(() => {
+        props.setState('allOrders')
+      })
     }
 
     const handleInputChange = (event) => {
@@ -33,11 +45,14 @@ const GlOrderPage = (props) => {
     };
 
     return(
-        <div className="col-md-9" id="profile">
+        <div className="col-md-10" id="profile">
           <div className="card mb-3">
             <div className="card-body">
               <Row>
-                <Form onSubmit={handleOrderSubmit}>
+                <Form 
+                  onSubmit={handleOrderSubmit}
+                  autoComplete="off"
+                >
                   <Row className="mb-3">
                     <Form.Group as={Col} className="mb-3" controlId="formDOB">
                       <Form.Label>Order Date</Form.Label>
@@ -45,7 +60,7 @@ const GlOrderPage = (props) => {
                     </Form.Group>
                     <Form.Group as={Col} controlId="formFirstName">
                       <Form.Label>Frame Brand</Form.Label>
-                      <Form.Select type="text" placeholder="Frame Info" name='frameModel' value={glOrder.frame} onChange={handleInputChange} required>
+                      <Form.Select type="text" placeholder="Frame Brand" name='frameBrand' value={glOrder.frame} onChange={handleInputChange} required>
                       <option>Choose...</option>
                       {frames.map((f) => (
                         <option value={f.frame}>{f.frame}</option>
@@ -54,7 +69,7 @@ const GlOrderPage = (props) => {
                     </Form.Group>
                     <Form.Group as={Col} controlId="formLastName">
                       <Form.Label>Model Number</Form.Label>
-                      <Form.Control type="text" placeholder="Model Number" name='frameBrand' value={glOrder.frameBrand} onChange={handleInputChange} required />
+                      <Form.Control type="text" placeholder="Model Number" name='frameModel' value={glOrder.frameBrand} onChange={handleInputChange} required />
                     </Form.Group>
                     <Form.Group as={Col} controlId="formLastName">
                       <Form.Label>Lens Type</Form.Label>

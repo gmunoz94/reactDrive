@@ -5,7 +5,7 @@ const Home = () => {
 
 
   return (
-    <div className="col-lg-9">
+    <div className="col-lg-10">
        <Container className="px-4 py-5" id="home-cards">
             <div className="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
             <div className="col">

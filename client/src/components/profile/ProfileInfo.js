@@ -5,15 +5,15 @@ import Axios from 'axios';
 
 const ProfileInfo = (props)  => {
   const [thisPt, setThisPt] = useState({
-    patient_id: "",
-    firstName: "",
-    lastName: "",
-    dateOfBirth: "",
-    address: "",
-    city: "",
-    state: "",
-    zipCode: "",
-    phoneNumber: ""
+    patient_id: props.thisPatient.patient_id,
+    firstName: props.thisPatient.firstName,
+    lastName: props.thisPatient.lastName,
+    dateOfBirth: props.thisPatient.dateOfBirth,
+    address: props.thisPatient.address,
+    city: props.thisPatient.city,
+    state: props.thisPatient.state,
+    zipCode: props.thisPatient.zipCode,
+    phoneNumber: props.thisPatient.phoneNumber
   });
 
   useEffect(() => {
@@ -23,15 +23,12 @@ const ProfileInfo = (props)  => {
   }, [props.currPt])
 
   const handleInputChange = (event) => {
-
-
     const { name, value } = event.target;
     setThisPt({ ...thisPt, [name]: value });
   };
 
   const handlePatientUpdate = async (event) => {
     event.preventDefault();
-
     
     Axios.put(`http://localhost:3001/api/patients/${thisPt.patient_id}`, {
       firstName: thisPt.firstName, 
@@ -51,11 +48,14 @@ const ProfileInfo = (props)  => {
   }
 
     return(
-      <div className="col-md-9" id="profile">
+      <div className="col-md-10" id="profile">
         <div className="card mb-3">
           <div className="card-body">
             <Row>
-              <Form onSubmit={handlePatientUpdate}>
+              <Form 
+                onSubmit={handlePatientUpdate}
+                autoComplete="off"
+              >
                 <Row className="mb-3">
                   <Form.Group as={Col} controlId="formFirstName">
                     <Form.Label>First Name</Form.Label>

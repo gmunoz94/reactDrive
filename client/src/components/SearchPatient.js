@@ -64,10 +64,12 @@ const SearchPatient = () =>{
 	};
 
 	return(
-		<div className="col-lg-9 mt-5">
-			<Container className='bg-secondary'>
-				<Row>
-					<Form onSubmit={handleFormSubmit}>
+		<div className="col-lg-10 mt-5">
+			<Container className='bg-dark p-4 rounded-1'>
+				<Row className='card-body bg-light rounded-3 mb-3'>
+					<Form 
+						onSubmit={handleFormSubmit} autoComplete="off"
+					>
 						<Row className='p-3'>
 							<Form.Group as={Col} controlId="formLastName">
 								<Form.Label>Last Name</Form.Label>
@@ -81,12 +83,13 @@ const SearchPatient = () =>{
 								<Form.Label>Date Of Birth</Form.Label>
 								<Form.Control type='date' name='dateOfBirth' value={searchData.dateOfBirth} onChange={handleInputChange} />
 							</Form.Group>
+						</Row>
+						<Row className='p-3'>
 							<Button type='submit'>Search</Button>
 						</Row>
 					</Form>
 				</Row>
-			</Container>
-			<Container>
+				<Row className='card-body bg-light rounded-3'>
 				<div className='table-responsive'>
 					<Table className='table-striped table-hover'>
 						<thead>
@@ -114,6 +117,7 @@ const SearchPatient = () =>{
 						</tbody>
 					</Table>
 				</div>
+				</Row>
 			</Container>
 		</div>
 	)

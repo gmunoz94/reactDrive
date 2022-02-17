@@ -4,7 +4,6 @@ const { Op } = require('sequelize');
 const patient = require('../../models/patient');
 
 router.post('/', (req, res) => {
-    console.log(req.body)
     patient.create({
         firstName: req.body.firstName,
         lastName: req.body.lastName,

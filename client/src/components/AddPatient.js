@@ -14,14 +14,12 @@ const AddPatient = () => {
     phoneNumber: ""
   });
   
-  
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
   
   const handleFormSubmit = async (event) => {
-    console.log(formData)
     event.preventDefault();
     
     Axios.post('http://localhost:3001/api/patients', {
@@ -46,11 +44,10 @@ const AddPatient = () => {
       });
       alert('Patient Added')
     })
-    
   };
   
   return (
-    <div className="col-lg-9">
+    <div className="col-lg-10">
       <Container className='p-5'>
         <Row>
           <Form onSubmit={handleFormSubmit}>
