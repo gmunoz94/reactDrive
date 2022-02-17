@@ -3,7 +3,7 @@ import React from "react";
 const Sidebar = () => {
 
 	return(
-		<div className="col-lg-2 d-flex flex-column flex-shrink-0 text-white bg-dark" >
+		<div className="col-lg-1 d-flex flex-column flex-shrink-0 text-white bg-dark" >
 			<ul className="nav nav-pills flex-column mb-auto pt-3">
 				<li className="nav-item">
 					<a href="/" className="nav-link active" aria-current="page">

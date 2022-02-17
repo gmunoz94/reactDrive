@@ -5,6 +5,11 @@ class glOrder extends Model {}
 
 glOrder.init(
     {
+        order_id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
         patient_id: {
             type:DataTypes.INTEGER,
             references: {

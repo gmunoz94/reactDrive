@@ -22,7 +22,7 @@ const AddPatient = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     
-    Axios.post('http://localhost:3001/api/patients', {
+    Axios.post('/api/patients', {
       firstName: formData.firstName, 
       lastName: formData.lastName, 
       dateOfBirth: formData.dateOfBirth,

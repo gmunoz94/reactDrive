@@ -21,34 +21,34 @@ const SearchPatient = () =>{
 		event.preventDefault();
 		
 		if(searchData.lastName) {
-			Axios.get(`http://localhost:3001/api/patients/searchLast/${searchData.lastName}`)
+			Axios.get(`/api/patients/searchLast/${searchData.lastName}`)
 			.then((response) => {
 				setRows(response.data);
 			})
 		}
 		if(searchData.firstName) {
-			Axios.get(`http://localhost:3001/api/patients/searchFirst/${searchData.firstName}`)
+			Axios.get(`/api/patients/searchFirst/${searchData.firstName}`)
 			.then((response) => {
 				console.log(response.data);
 				setRows(response.data);
 			})
 		}
 		if(searchData.dateOfBirth) {
-			Axios.get(`http://localhost:3001/api/patients/searchDOB/${searchData.dateOfBirth}`)
+			Axios.get(`/api/patients/searchDOB/${searchData.dateOfBirth}`)
 			.then((response) => {
 				console.log(response.data);
 				setRows(response.data);
 			})
 		}
 		if(searchData.lastName && searchData.firstName) {
-			Axios.get(`http://localhost:3001/api/patients/searchLastFirst/${searchData.lastName}/${searchData.firstName}`)
+			Axios.get(`/api/patients/searchLastFirst/${searchData.lastName}/${searchData.firstName}`)
 			.then((response) => {
 				console.log(response.data);
 				setRows(response.data);
 			})
 		}
 		if(searchData.lastName && searchData.firstName && searchData.dateOfBirth) {
-			Axios.get(`http://localhost:3001/api/patients/searchAll/${searchData.lastName}/${searchData.firstName}/${searchData.dateOfBirth}`)
+			Axios.get(`/api/patients/searchAll/${searchData.lastName}/${searchData.firstName}/${searchData.dateOfBirth}`)
 			.then((response) => {
 				console.log(response.data);
 				setRows(response.data);
@@ -64,8 +64,8 @@ const SearchPatient = () =>{
 	};
 
 	return(
-		<div className="col-lg-10 mt-5">
-			<Container className='bg-dark p-4 rounded-1'>
+		<div className="col-lg-11 mt-5 px-5">
+			<Container fluid className='bg-dark p-5 rounded-1 '>
 				<Row className='card-body bg-light rounded-3 mb-3'>
 					<Form 
 						onSubmit={handleFormSubmit} autoComplete="off"

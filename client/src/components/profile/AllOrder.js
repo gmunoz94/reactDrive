@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Row, Form } from 'react-bootstrap';
+import { Table, Row, Form, Button } from 'react-bootstrap';
 import Axios from 'axios';
 
 const AllOrder = (props) => {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
-      Axios.get(`http://localhost:3001/api/orders/glOrder/${props.currPt}`).then((response) => {
+      Axios.get(`/api/orders/glOrder/${props.currPt}`).then((response) => {
         setOrders(response.data)
       })
     }, [props.currPt])
@@ -65,7 +65,22 @@ const AllOrder = (props) => {
                                 {r.lab}
                               </td>
                               <td>
-                                
+                                {r.ordered}
+                              </td>
+                              <td>
+                                {r.arrived}
+                              </td>
+                              <td>
+                                {r.ready}
+                              </td>
+                              <td>
+                                {r.received}
+                              </td>
+                              <td>
+                                {r.dispensed}
+                              </td>
+                              <td>
+                                <Button value={r.order_id}>Edit</Button>
                               </td>
                             </tr>
                         ))}

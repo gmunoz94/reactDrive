@@ -17,7 +17,7 @@ const GlOrderPage = (props) => {
     const [frames, setFrames] = useState([]);
 
     useEffect(() => {
-      Axios.get(`http://localhost:3001/api/frames`).then((response) => {
+      Axios.get(`/api/frames`).then((response) => {
         setFrames(response.data)
       })
     }, [])
@@ -25,7 +25,7 @@ const GlOrderPage = (props) => {
     const handleOrderSubmit = (event) => {
       event.preventDefault();
 
-      Axios.post(`http://localhost:3001/api/orders/glOrder/${props.currPt}`, {
+      Axios.post(`/api/orders/glOrder/${props.currPt}`, {
         patient_id: glOrder.patient_id,
         orderDate: glOrder.orderDate,
         frameBrand: glOrder.frameBrand,
@@ -35,7 +35,7 @@ const GlOrderPage = (props) => {
         moreOrders: glOrder.moreOrders,
         lab: glOrder.lab
       }).then(() => {
-        props.setState('allOrders')
+        // props.setState('allOrders')
       })
     }
 
@@ -69,7 +69,7 @@ const GlOrderPage = (props) => {
                     </Form.Group>
                     <Form.Group as={Col} controlId="formLastName">
                       <Form.Label>Model Number</Form.Label>
-                      <Form.Control type="text" placeholder="Model Number" name='frameModel' value={glOrder.frameBrand} onChange={handleInputChange} required />
+                      <Form.Control type="text" placeholder="Model Number" name='frameModel' value={glOrder.frameModel} onChange={handleInputChange} required />
                     </Form.Group>
                     <Form.Group as={Col} controlId="formLastName">
                       <Form.Label>Lens Type</Form.Label>

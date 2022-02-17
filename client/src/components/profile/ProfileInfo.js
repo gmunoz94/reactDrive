@@ -17,7 +17,7 @@ const ProfileInfo = (props)  => {
   });
 
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/patients/${props.currPt}`).then((response) => {
+    Axios.get(`/api/patients/${props.currPt}`).then((response) => {
       setThisPt(response.data[0])
     })
   }, [props.currPt])
@@ -30,7 +30,7 @@ const ProfileInfo = (props)  => {
   const handlePatientUpdate = async (event) => {
     event.preventDefault();
     
-    Axios.put(`http://localhost:3001/api/patients/${thisPt.patient_id}`, {
+    Axios.put(`/api/patients/${thisPt.patient_id}`, {
       firstName: thisPt.firstName, 
       lastName: thisPt.lastName, 
       dateOfBirth: thisPt.dateOfBirth,
@@ -40,7 +40,7 @@ const ProfileInfo = (props)  => {
       zipCode: thisPt.zipCode, 
       phoneNumber: thisPt.phoneNumber
     }).then(() => {
-      Axios.get(`http://localhost:3001/api/patients/${thisPt.props.thisPatient}`).then((response) => {
+      Axios.get(`/api/patients/${thisPt.props.thisPatient}`).then((response) => {
         props.setThisPt(response.data[0])
         window.location.reload();
       })

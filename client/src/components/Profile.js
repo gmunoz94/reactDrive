@@ -15,14 +15,14 @@ const Profile = () => {
   const [thisPt, setThisPt] = useState({});
 
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/patients/${currPt}`).then((response) => {
+    Axios.get(`/api/patients/${currPt}`).then((response) => {
       setThisPt(response.data[0])
     })
   }, [currPt])
 
   return( 
-    <div className="col-lg-10 mt-5">
-      <section className="container bg-dark p-4 rounded-1">
+    <div className="col-lg-11 mt-5 px-5">
+      <section className="container-fluid bg-dark p-4 rounded-1">
           <div className="main-body">
             <div className="row d-flex">
               {/* Side Bar */}
