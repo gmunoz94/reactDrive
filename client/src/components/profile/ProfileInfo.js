@@ -1,47 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import Axios from 'axios';
+import { PatientContext, PatientUpdateContext } from "../Profile";
 
 
-const ProfileInfo = (props)  => {
-  const [thisPt, setThisPt] = useState({
-    patient_id: props.thisPatient.patient_id,
-    firstName: props.thisPatient.firstName,
-    lastName: props.thisPatient.lastName,
-    dateOfBirth: props.thisPatient.dateOfBirth,
-    address: props.thisPatient.address,
-    city: props.thisPatient.city,
-    state: props.thisPatient.state,
-    zipCode: props.thisPatient.zipCode,
-    phoneNumber: props.thisPatient.phoneNumber
-  });
-
-  useEffect(() => {
-    Axios.get(`/api/patients/${props.currPt}`).then((response) => {
-      setThisPt(response.data[0])
-    })
-  }, [props.currPt])
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setThisPt({ ...thisPt, [name]: value });
-  };
+const ProfileInfo = ()  => {
+  const thisPatient = useContext(PatientContext)
+  const updatePatientInfo = useContext(PatientUpdateContext)
 
   const handlePatientUpdate = async (event) => {
     event.preventDefault();
     
-    Axios.put(`/api/patients/${thisPt.patient_id}`, {
-      firstName: thisPt.firstName, 
-      lastName: thisPt.lastName, 
-      dateOfBirth: thisPt.dateOfBirth,
-      address: thisPt.address,
-      city: thisPt.city,
-      state: thisPt.state,
-      zipCode: thisPt.zipCode, 
-      phoneNumber: thisPt.phoneNumber
+    Axios.put(`/api/patients/${thisPatient.patient_id}`, {
+      firstName: thisPatient.firstName, 
+      lastName: thisPatient.lastName, 
+      dateOfBirth: thisPatient.dateOfBirth,
+      address: thisPatient.address,
+      city: thisPatient.city,
+      state: thisPatient.state,
+      zipCode: thisPatient.zipCode, 
+      phoneNumber: thisPatient.phoneNumber
     }).then(() => {
-      Axios.get(`/api/patients/${thisPt.props.thisPatient}`).then((response) => {
-        props.setThisPt(response.data[0])
+      Axios.get(`/api/patients/${thisPatient.patient_id}`).then((response) => {
+        updatePatientInfo(response.data[0])
         window.location.reload();
       })
     })
@@ -59,35 +40,35 @@ const ProfileInfo = (props)  => {
                 <Row className="mb-3">
                   <Form.Group as={Col} controlId="formFirstName">
                     <Form.Label>First Name</Form.Label>
-                    <Form.Control type="text" placeholder="First name" name='firstName' value={thisPt.firstName} onChange={handleInputChange} required />
+                    <Form.Control type="text" placeholder="First name" name='firstName' value={thisPatient.firstName} onChange={updatePatientInfo} required />
                   </Form.Group>
                   <Form.Group as={Col} controlId="formLastName">
                     <Form.Label>Last Name</Form.Label>
-                    <Form.Control type="text" placeholder="Last name" name='lastName' value={thisPt.lastName} onChange={handleInputChange} required />
+                    <Form.Control type="text" placeholder="Last name" name='lastName' value={thisPatient.lastName} onChange={updatePatientInfo} required />
                   </Form.Group>
                 </Row>
                 <Row>
                   <Form.Group as={Col} className="mb-3" controlId="formDOB">
                     <Form.Label>Date Of Birth</Form.Label>
-                    <Form.Control type="date" name='dateOfBirth' value={thisPt.dateOfBirth} onChange={handleInputChange} required />
+                    <Form.Control type="date" name='dateOfBirth' value={thisPatient.dateOfBirth} onChange={updatePatientInfo} required />
                   </Form.Group>
                   <Form.Group as={Col} controlId="formNumber">
                     <Form.Label>Phone Number</Form.Label>
-                    <Form.Control type="number" placeholder="Phone Number" name='phoneNumber' value={thisPt.phoneNumber} onChange={handleInputChange} required />
+                    <Form.Control type="number" placeholder="Phone Number" name='phoneNumber' value={thisPatient.phoneNumber} onChange={updatePatientInfo} required />
                   </Form.Group>
                 </Row>
                 <Form.Group className="mb-3" controlId="formAddress">
                   <Form.Label>Address</Form.Label>
-                  <Form.Control type="text" placeholder="Address" name='address' value={thisPt.address} onChange={handleInputChange} required />
+                  <Form.Control type="text" placeholder="Address" name='address' value={thisPatient.address} onChange={updatePatientInfo} required />
                 </Form.Group>
                 <Row className="mb-3">
                   <Form.Group as={Col} controlId="formCity">
                     <Form.Label>City</Form.Label>
-                    <Form.Control type="text" placeholder="City" name='city' value={thisPt.city} onChange={handleInputChange} required />
+                    <Form.Control type="text" placeholder="City" name='city' value={thisPatient.city} onChange={updatePatientInfo} required />
                   </Form.Group>
                   <Form.Group as={Col} controlId="formState">
                     <Form.Label>State</Form.Label>
-                    <Form.Select defaultValue="Select" name='state' value={thisPt.state} onChange={handleInputChange} required >
+                    <Form.Select defaultValue="Select" name='state' value={thisPatient.state} onChange={updatePatientInfo} required >
                       <option>Choose...</option>
                       <option value="Alabama">AL : Alabama</option>
                       <option value="Alaska">AK : Alaska</option>
@@ -143,7 +124,7 @@ const ProfileInfo = (props)  => {
                   </Form.Group>
                   <Form.Group as={Col} controlId="formZip">
                     <Form.Label>Zip Code</Form.Label>
-                    <Form.Control type="number" placeholder="Zip Code" name='zipCode' value={thisPt.zipCode} onChange={handleInputChange} required />
+                    <Form.Control type="number" placeholder="Zip Code" name='zipCode' value={thisPatient.zipCode} onChange={updatePatientInfo} required />
                   </Form.Group>
                 </Row>
                 <Button variant="secondary" type="submit">
