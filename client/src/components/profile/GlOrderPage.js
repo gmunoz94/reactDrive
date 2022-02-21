@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import Axios from 'axios';
+import { PatientContext } from "../Profile";
 
-const GlOrderPage = (props) => {
+const GlOrderPage = () => {
+    const thisPatient = useContext(PatientContext);
+
     const [glOrder, setGlOrder] = useState({
-        patient_id: props.currPt,
+        patient_id: thisPatient.patient_id,
         orderDate: "",
         frameBrand: "",
         frameModel: "",
@@ -25,7 +28,7 @@ const GlOrderPage = (props) => {
     const handleOrderSubmit = (event) => {
       event.preventDefault();
 
-      Axios.post(`/api/orders/glOrder/${props.currPt}`, {
+      Axios.post(`/api/orders/glOrder/${thisPatient.patient_id}`, {
         patient_id: glOrder.patient_id,
         orderDate: glOrder.orderDate,
         frameBrand: glOrder.frameBrand,

@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
+import { PatientContext } from "../Profile";
+import { useRouteMatch } from "react-router-dom";
+
 
 const Sidebar = () => {
+	const thisPatient = useContext(PatientContext);
+	const { url } = useRouteMatch();
 
 	return(
 		<div className="col-lg-2 d-flex flex-column flex-shrink-0 text-white bg-dark" >
 			<ul className="nav nav-pills flex-column mb-auto pt-3">
 				<li className="nav-item">
-					<a href="/" className="nav-link active" aria-current="page">
-						Home
+					<a href={url} className="nav-link active fw-bold" aria-current="page">
+						{thisPatient.firstName} {thisPatient.lastName}
 					</a>
 				</li>
 				<li>

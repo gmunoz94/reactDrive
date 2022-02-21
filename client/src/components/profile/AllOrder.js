@@ -1,15 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Table, Row, Form, Button } from 'react-bootstrap';
 import Axios from 'axios';
+import { PatientContext } from '../../components/Profile'
 
-const AllOrder = (props) => {
-    const [orders, setOrders] = useState([]);
+
+const AllOrder = () => {
+    const thisPatient = useContext(PatientContext);
+
+    const [glOrders, setGlOrders] = useState([]);
+    const [clOrders, setClOrders] = useState([]);
 
     useEffect(() => {
-      Axios.get(`/api/orders/glOrder/${props.currPt}`).then((response) => {
-        setOrders(response.data)
+      Axios.get(`/api/orders/glOrder/${thisPatient.patient_id}`).then((response) => {
+        setGlOrders(response.data)
       })
-    }, [props.currPt])
+      Axios.get(`/api/orders/clOrder/${thisPatient.patient_id}`).then((response) => {
+        setClOrders(response.data)
+      })
+    }, [thisPatient.patient_id])
 
     // const handleOrderUpdate = () => {
 
@@ -25,6 +33,7 @@ const AllOrder = (props) => {
           <div className="card mb-3">
             <div className="card-body">
               <Row>
+                <h5>Glasses Orders</h5>
                 <Form>
                   <div className='table-responsive'>
                     <Table className='table-striped table-hover'>
@@ -44,7 +53,7 @@ const AllOrder = (props) => {
                         </tr>
                       </thead>
                       <tbody>
-                        {orders.map((r) => (
+                        {glOrders.map((r) => (
                             <tr>
                               <td>
                                 {r.orderDate}
@@ -57,6 +66,79 @@ const AllOrder = (props) => {
                               </td>
                               <td>
                                 {r.location}
+                              </td>
+                              <td>
+                                {r.moreOrders}
+                              </td>
+                              <td>
+                                {r.lab}
+                              </td>
+                              <td>
+                                {r.ordered}
+                              </td>
+                              <td>
+                                {r.arrived}
+                              </td>
+                              <td>
+                                {r.ready}
+                              </td>
+                              <td>
+                                {r.received}
+                              </td>
+                              <td>
+                                {r.dispensed}
+                              </td>
+                              <td>
+                                <Button value={r.order_id}>Edit</Button>
+                              </td>
+                            </tr>
+                        ))}
+                      </tbody>
+                    </Table>
+                  </div>
+                </Form>
+              </Row>
+            </div>
+          </div>
+          <div className="card mb-3">
+            <div className="card-body">
+              <Row>
+                <h5>Contacts Orders</h5>
+                <Form>
+                  <div className='table-responsive'>
+                    <Table className='table-striped table-hover'>
+                      <thead>
+                        <tr>
+                          <th scope='col'>Order Date</th>
+                          <th scope='col'>OD Boxes</th>
+                          <th scope='col'>OD Box Type</th>
+                          <th scope='col'>OS Boxes</th>
+                          <th scope='col'>OS Box Type</th>
+                          <th scope='col'>More Orders</th>
+                          <th scope='col'>Ordered?</th>
+                          <th scope='col'>Arrived?</th>
+                          <th scope='col'>Ready?</th>
+                          <th scope='col'>Received?</th>
+                          <th scope='col'>Dispensed?</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {clOrders.map((r) => (
+                            <tr>
+                              <td>
+                                {r.orderDate}
+                              </td>
+                              <td>
+                                {r.odBoxes}
+                              </td>
+                              <td>
+                                {r.odBoxType}
+                              </td>
+                              <td>
+                                {r.osBoxes}
+                              </td>
+                              <td>
+                                {r.osBoxType}
                               </td>
                               <td>
                                 {r.moreOrders}

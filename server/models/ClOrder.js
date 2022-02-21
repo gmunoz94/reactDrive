@@ -16,13 +16,13 @@ clOrder.init(
             type: DataTypes.DATEONLY
         },
         odBoxes: {
-            type: DataTypes.INTEGER
+            type: DataTypes.STRING
         },
         odBoxType: {
             type: DataTypes.STRING
         },
         osBoxes: {
-            type: DataTypes.INTEGER
+            type: DataTypes.STRING
         },
         osBoxType: {
             type: DataTypes.STRING

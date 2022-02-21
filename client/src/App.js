@@ -5,7 +5,6 @@ import HeadBar from './components/HeadBar';
 import Home from './components/Home';
 import SearchPatient from './components/SearchPatient';
 import Profile from './components/Profile';
-import Sidebar from './components/SideBar';
 import { Row } from 'react-bootstrap';
 import './styles/bootstrap.css'
 
@@ -15,7 +14,7 @@ function App() {
       <main>
         <HeadBar />
         <Row className='mx-0 mainContent vh-100'>
-          <Sidebar />
+          {/* <Sidebar /> */}
           <Route exact path="/">
             <Home />
           </Route>

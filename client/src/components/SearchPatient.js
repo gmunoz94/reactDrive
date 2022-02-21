@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Axios from 'axios';
 import { Container, Form, Row, Col, Button, Table } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import Sidebar from './SideBar';
 
 const SearchPatient = () =>{
 	const [searchData, setSearchData] = useState({
@@ -64,62 +65,65 @@ const SearchPatient = () =>{
 	};
 
 	return(
-		<div className="col-lg-11 mt-5 px-5">
-			<Container fluid className='bg-dark p-5 rounded-1 '>
-				<Row className='card-body bg-light rounded-3 mb-3'>
-					<Form 
-						onSubmit={handleFormSubmit} autoComplete="off"
-					>
-						<Row className='p-3'>
-							<Form.Group as={Col} controlId="formLastName">
-								<Form.Label>Last Name</Form.Label>
-								<Form.Control type='text' placeholder='Last Name' name='lastName' value={searchData.lastName} onChange={handleInputChange} />
-							</Form.Group>
-							<Form.Group as={Col} controlId="formFirstName">
-								<Form.Label>First Name</Form.Label>
-								<Form.Control type='text' placeholder='First Name' name='firstName' value={searchData.firstName} onChange={handleInputChange} />
-							</Form.Group>
-							<Form.Group as={Col} controlId="formDateOfBirth">
-								<Form.Label>Date Of Birth</Form.Label>
-								<Form.Control type='date' name='dateOfBirth' value={searchData.dateOfBirth} onChange={handleInputChange} />
-							</Form.Group>
-						</Row>
-						<Row className='p-3'>
-							<Button type='submit'>Search</Button>
-						</Row>
-					</Form>
-				</Row>
-				<Row className='card-body bg-light rounded-3'>
-				<div className='table-responsive'>
-					<Table className='table-striped table-hover'>
-						<thead>
-							<tr>
-								<th scope='col'>Last Name</th>
-								<th scope='col'>First Name</th>
-								<th scope='col'>Date of Birth</th>
-								<th scope='col'>Phone Number</th>
-							</tr>
-						</thead>
-						<tbody>
-							{rows.map((r) => r === null ? (
+		<>
+			<Sidebar />
+			<div className="col-lg-10 mt-5 px-5">
+				<Container fluid className='bg-dark p-5 rounded-1 '>
+					<Row className='card-body bg-light rounded-3 mb-3'>
+						<Form
+							onSubmit={handleFormSubmit} autoComplete="off"
+						>
+							<Row className='p-3'>
+								<Form.Group as={Col} controlId="formLastName">
+									<Form.Label>Last Name</Form.Label>
+									<Form.Control type='text' placeholder='Last Name' name='lastName' value={searchData.lastName} onChange={handleInputChange} />
+								</Form.Group>
+								<Form.Group as={Col} controlId="formFirstName">
+									<Form.Label>First Name</Form.Label>
+									<Form.Control type='text' placeholder='First Name' name='firstName' value={searchData.firstName} onChange={handleInputChange} />
+								</Form.Group>
+								<Form.Group as={Col} controlId="formDateOfBirth">
+									<Form.Label>Date Of Birth</Form.Label>
+									<Form.Control type='date' name='dateOfBirth' value={searchData.dateOfBirth} onChange={handleInputChange} />
+								</Form.Group>
+							</Row>
+							<Row className='p-3'>
+								<Button type='submit'>Search</Button>
+							</Row>
+						</Form>
+					</Row>
+					<Row className='card-body bg-light rounded-3'>
+					<div className='table-responsive'>
+						<Table className='table-striped table-hover'>
+							<thead>
 								<tr>
-									<td colSpan={4}>No Patients</td>
+									<th scope='col'>Last Name</th>
+									<th scope='col'>First Name</th>
+									<th scope='col'>Date of Birth</th>
+									<th scope='col'>Phone Number</th>
 								</tr>
-							) : (
-								<tr key={r.patient_id}>
-									<td>{r.lastName}</td>
-									<td>{r.firstName}</td>
-									<td>{r.dateOfBirth}</td>
-									<td>{r.phoneNumber}</td>
-									<td><Button value={r.patient_id} onClick={handleRowClick}>Select</Button></td>
-								</tr>
-							))}
-						</tbody>
-					</Table>
-				</div>
-				</Row>
-			</Container>
-		</div>
+							</thead>
+							<tbody>
+								{rows.map((r) => r === null ? (
+									<tr>
+										<td colSpan={4}>No Patients</td>
+									</tr>
+								) : (
+									<tr key={r.patient_id}>
+										<td>{r.lastName}</td>
+										<td>{r.firstName}</td>
+										<td>{r.dateOfBirth}</td>
+										<td>{r.phoneNumber}</td>
+										<td><Button value={r.patient_id} onClick={handleRowClick}>Select</Button></td>
+									</tr>
+								))}
+							</tbody>
+						</Table>
+					</div>
+					</Row>
+				</Container>
+			</div>
+		</>
 	)
 }
 

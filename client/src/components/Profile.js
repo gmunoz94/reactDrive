@@ -4,6 +4,8 @@ import Axios from 'axios';
 import ProfileInfo from "./profile/ProfileInfo.js";
 import GlOrderPage from "./profile/GlOrderPage.js";
 import AllOrder from './profile/AllOrder';
+import ClOrderPage from "./profile/ClOrderPage.js";
+import PatientSidebar from './profile/PatientSideBar'
 
 export const PatientContext = React.createContext();
 export const PatientUpdateContext = React.createContext();
@@ -31,7 +33,8 @@ const Profile = () => {
   return( 
     <PatientContext.Provider value={thisPt}>
       <PatientUpdateContext.Provider value={handleInputChange}>
-        <div className="col-lg-11 mt-5 px-5">
+        <PatientSidebar />
+        <div className="col-lg-10 mt-5 px-5">
           <section className="container-fluid bg-dark p-4 rounded-1">
               <div className="main-body">
                 <div className="row d-flex">
@@ -69,7 +72,7 @@ const Profile = () => {
                   {state === 'pendingOrders' && <GlOrderPage />}
                   {state === 'completeOrders' && <GlOrderPage />}
                   {state === 'glNew' && <GlOrderPage />}
-                  {state === 'clNew' && <GlOrderPage />}
+                  {state === 'clNew' && <ClOrderPage />}
                 </div>
               </div>
           </section>
