@@ -6,6 +6,7 @@ import GlOrderPage from "./profile/GlOrderPage.js";
 import AllOrder from './profile/AllOrder';
 import ClOrderPage from "./profile/ClOrderPage.js";
 import PatientSidebar from './profile/PatientSideBar'
+import PendingOrder from "./profile/PendingOrder.js";
 
 export const PatientContext = React.createContext();
 export const PatientUpdateContext = React.createContext();
@@ -35,7 +36,7 @@ const Profile = () => {
     <PatientContext.Provider value={thisPt}>
       <PatientUpdateContext.Provider value={handleInputChange}>
         <PatientSidebar />
-        <div className="col-lg-10 mt-5 px-5">
+        <div className="col-lg-10 mt-2 px-2">
           <section className="container-fluid bg-dark p-4 rounded-1">
               <div className="main-body">
                   <Router>
@@ -45,6 +46,9 @@ const Profile = () => {
                     </Route>
                     <Route path={`${url}/allOrder`}>
                       <AllOrder />
+                    </Route>
+                    <Route path={`${url}/pendingOrder`}>
+                      <PendingOrder />
                     </Route>
                     <Route path={`${url}/glNew`}>
                       <GlOrderPage />

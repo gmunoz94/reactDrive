@@ -20,7 +20,7 @@ const ClOrderPage = () => {
       event.preventDefault();
 
       Axios.post(`/api/orders/clOrder/${thisPatient.patient_id}`, {
-        patient_id: clOrder.patient_id,
+        patient_id: thisPatient.patient_id,
         orderDate: clOrder.orderDate,
         odBoxes: clOrder.odBoxes,
         odBoxType: clOrder.odBoxType,

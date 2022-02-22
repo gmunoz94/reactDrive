@@ -4,18 +4,20 @@ import Axios from 'axios';
 import { PatientContext } from '../../components/Profile'
 
 
-const AllOrder = () => {
+const PendingOrder = () => {
     const thisPatient = useContext(PatientContext);
 
     const [glOrders, setGlOrders] = useState([]);
     const [clOrders, setClOrders] = useState([]);
 
     useEffect(() => {
-      Axios.get(`/api/orders/glOrder/${thisPatient.patient_id}`).then((response) => {
+      Axios.get(`/api/orders/glOrder/${thisPatient.patient_id}/pending`).then((response) => {
         setGlOrders(response.data)
-      })
-      Axios.get(`/api/orders/clOrder/${thisPatient.patient_id}`).then((response) => {
+        console.log(response.data)
+    })
+    Axios.get(`/api/orders/clOrder/${thisPatient.patient_id}/pending`).then((response) => {
         setClOrders(response.data)
+        console.log(response.data)
       })
     }, [thisPatient.patient_id])
 
@@ -54,7 +56,7 @@ const AllOrder = () => {
                       </thead>
                       <tbody>
                         {glOrders.map((r) => (
-                            <tr key={r.order_id}>
+                            <tr>
                               <td>
                                 {r.orderDate}
                               </td>
@@ -124,7 +126,7 @@ const AllOrder = () => {
                       </thead>
                       <tbody>
                         {clOrders.map((r) => (
-                            <tr key={r.order_id}>
+                            <tr>
                               <td>
                                 {r.orderDate}
                               </td>
@@ -177,4 +179,4 @@ const AllOrder = () => {
       )
 }
 
-export default AllOrder;
+export default PendingOrder;

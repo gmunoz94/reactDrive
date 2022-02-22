@@ -5,7 +5,7 @@ import { useRouteMatch } from "react-router-dom";
 
 const Sidebar = () => {
 	const thisPatient = useContext(PatientContext);
-	const { path, url } = useRouteMatch();
+	const { url } = useRouteMatch();
 
 	// console.log('path', path);
 	// console.log('url', url);
@@ -30,9 +30,9 @@ const Sidebar = () => {
 					</a>
 				</li>
 				<li>
-					<button className="nav-link">
+					<a href={`${url}/pendingOrder`} className="nav-link">
 						Pending Orders
-					</button>
+					</a>
 				</li>
 				<li>
 					<button className="nav-link">

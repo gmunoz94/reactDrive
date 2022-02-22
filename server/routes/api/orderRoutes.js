@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { Op } = require('sequelize');
 
 const clOrder = require('../../models/ClOrder');
 const glOrder = require('../../models/GlOrder');
@@ -31,6 +32,19 @@ router.get('/glOrder/:patient_id', (req, res) => {
     })
 })
 
+router.get('/glOrder/:patient_id/pending', (req, res) => {
+    glOrder.findAll({
+        where: {
+            patient_id: req.params.patient_id,
+            [Op.not]: {
+                dispensed: 'yes'
+            }
+        }
+    }).then((orderData) => {
+        res.json(orderData);
+    })
+})
+
 router.post('/clOrder/:patient_id', (req, res) => {
     console.log(req.body)
     clOrder.create({
@@ -54,6 +68,19 @@ router.get('/clOrder/:patient_id', (req, res) => {
         where: {
             patient_id: req.params.patient_id
         }
+    }).then((orderData) => {
+        res.json(orderData);
+    })
+})
+
+router.get('/clOrder/:patient_id/pending', (req, res) => {
+    clOrder.findAll({
+        where: [{
+            patient_id: req.params.patient_id,
+            [Op.not]: {
+                dispensed: 'yes'
+            }
+        }]
     }).then((orderData) => {
         res.json(orderData);
     })

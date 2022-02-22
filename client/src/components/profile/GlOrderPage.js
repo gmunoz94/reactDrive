@@ -29,7 +29,7 @@ const GlOrderPage = () => {
       event.preventDefault();
 
       Axios.post(`/api/orders/glOrder/${thisPatient.patient_id}`, {
-        patient_id: glOrder.patient_id,
+        patient_id: thisPatient.patient_id,
         orderDate: glOrder.orderDate,
         frameBrand: glOrder.frameBrand,
         frameModel: glOrder.frameModel,
