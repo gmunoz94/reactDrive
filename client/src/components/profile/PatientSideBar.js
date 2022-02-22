@@ -3,9 +3,13 @@ import { PatientContext } from "../Profile";
 import { useRouteMatch } from "react-router-dom";
 
 
-const Sidebar = ({updateComponent}) => {
+const Sidebar = () => {
 	const thisPatient = useContext(PatientContext);
-	const { url } = useRouteMatch();
+	const { path, url } = useRouteMatch();
+
+	// console.log('path', path);
+	// console.log('url', url);
+
 
 	return(
 		<div className="col-lg-2 d-flex flex-column flex-shrink-0 text-white bg-dark" >
@@ -21,9 +25,9 @@ const Sidebar = ({updateComponent}) => {
 					</a>
 				</li>
 				<li>
-					<button className="nav-link">
+					<a href={`${url}/allOrder`} className="nav-link">
 						All Orders
-					</button>
+					</a>
 				</li>
 				<li>
 					<button className="nav-link">
@@ -36,14 +40,14 @@ const Sidebar = ({updateComponent}) => {
 					</button>
 				</li>
 				<li>
-					<button className="nav-link">
+					<a href={`${url}/glNew`} className="nav-link">
 						New Glasses Order
-					</button>
+					</a>
 				</li>
 				<li>
-					<button className="nav-link">
+					<a href={`${url}/clNew`} className="nav-link">
 						New Contact Order
-					</button>
+					</a>
 				</li>
 			</ul>
 			<hr />

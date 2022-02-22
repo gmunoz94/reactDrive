@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, BrowserRouter as Router, Route, useRouteMatch } from "react-router-dom";
 import Axios from 'axios';
 import ProfileInfo from "./profile/ProfileInfo.js";
 import GlOrderPage from "./profile/GlOrderPage.js";
@@ -11,10 +11,12 @@ export const PatientContext = React.createContext();
 export const PatientUpdateContext = React.createContext();
 
 const Profile = () => {
+  const { path, url } = useRouteMatch();
+
+	console.log('path', path);
+	console.log('url', url);
   const params = useParams();
   const currPt = params.patient_id;
-
-  const [state, setState] = useState('profile');
 
   const [thisPt, setThisPt] = useState({});
 
@@ -29,28 +31,28 @@ const Profile = () => {
     })
   }, [currPt])
 
-  const updateComponent = (newState) => {
-    setState(newState)
-  }
-
   return( 
     <PatientContext.Provider value={thisPt}>
       <PatientUpdateContext.Provider value={handleInputChange}>
-        <PatientSidebar updateComponent={updateComponent} />
+        <PatientSidebar />
         <div className="col-lg-10 mt-5 px-5">
           <section className="container-fluid bg-dark p-4 rounded-1">
               <div className="main-body">
-                <div className="row d-flex">
-                  {/* Patient Info */}
-                  {state === 'profile' && (
-                    <ProfileInfo />
-                  )}
-                  {state === 'allOrders' && <AllOrder />}
-                  {state === 'pendingOrders' && <GlOrderPage />}
-                  {state === 'completeOrders' && <GlOrderPage />}
-                  {state === 'glNew' && <GlOrderPage />}
-                  {state === 'clNew' && <ClOrderPage />}
-                </div>
+                  <Router>
+                    {/* Patient Info */}
+                    <Route exact path={`${url}`}>
+                      <ProfileInfo />
+                    </Route>
+                    <Route path={`${url}/allOrder`}>
+                      <AllOrder />
+                    </Route>
+                    <Route path={`${url}/glNew`}>
+                      <GlOrderPage />
+                    </Route>
+                    <Route path={`${url}/clNew`}>
+                      <ClOrderPage />
+                    </Route>
+                  </Router>
               </div>
           </section>
         </div>
