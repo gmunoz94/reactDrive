@@ -29,7 +29,7 @@ const AllOrder = () => {
     // };
 
     return(
-        <div className="col-md-10" id="profile">
+        <div id="profile">
           <div className="card mb-3">
             <div className="card-body">
               <Row>

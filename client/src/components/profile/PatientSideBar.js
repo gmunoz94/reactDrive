@@ -3,7 +3,7 @@ import { PatientContext } from "../Profile";
 import { useRouteMatch } from "react-router-dom";
 
 
-const Sidebar = () => {
+const Sidebar = ({updateComponent}) => {
 	const thisPatient = useContext(PatientContext);
 	const { url } = useRouteMatch();
 
@@ -11,24 +11,39 @@ const Sidebar = () => {
 		<div className="col-lg-2 d-flex flex-column flex-shrink-0 text-white bg-dark" >
 			<ul className="nav nav-pills flex-column mb-auto pt-3">
 				<li className="nav-item">
-					<a href={url} className="nav-link active fw-bold" aria-current="page">
+					<div href={url} className="nav-link active fw-bold" aria-current="page">
 						{thisPatient.firstName} {thisPatient.lastName}
+					</div>
+				</li>
+				<li>
+					<a  href={url} className="nav-link">
+						Profile
 					</a>
 				</li>
 				<li>
-					<a href="/dashboard" className="nav-link">
-						Dashboard
-					</a>
+					<button className="nav-link">
+						All Orders
+					</button>
 				</li>
 				<li>
-					<a href="/orders" className="nav-link">
-						Orders
-					</a>
+					<button className="nav-link">
+						Pending Orders
+					</button>
 				</li>
 				<li>
-					<a href="/patient/search" className="nav-link">
-						Patients
-					</a>
+					<button className="nav-link">
+						Complete Orders
+					</button>
+				</li>
+				<li>
+					<button className="nav-link">
+						New Glasses Order
+					</button>
+				</li>
+				<li>
+					<button className="nav-link">
+						New Contact Order
+					</button>
 				</li>
 			</ul>
 			<hr />

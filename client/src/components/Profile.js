@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useRouteMatch } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Axios from 'axios';
 import ProfileInfo from "./profile/ProfileInfo.js";
 import GlOrderPage from "./profile/GlOrderPage.js";
@@ -13,7 +13,6 @@ export const PatientUpdateContext = React.createContext();
 const Profile = () => {
   const params = useParams();
   const currPt = params.patient_id;
-  const { url } = useRouteMatch();
 
   const [state, setState] = useState('profile');
 
@@ -30,40 +29,18 @@ const Profile = () => {
     })
   }, [currPt])
 
+  const updateComponent = (newState) => {
+    setState(newState)
+  }
+
   return( 
     <PatientContext.Provider value={thisPt}>
       <PatientUpdateContext.Provider value={handleInputChange}>
-        <PatientSidebar />
+        <PatientSidebar updateComponent={updateComponent} />
         <div className="col-lg-10 mt-5 px-5">
           <section className="container-fluid bg-dark p-4 rounded-1">
               <div className="main-body">
                 <div className="row d-flex">
-                  {/* Side Bar */}
-                  <div className="col-md-2 mb-3">
-                    <div className="card-body bg-light rounded-3">
-                      <div className="d-flex flex-column text-center p-1">
-                        <h3>{thisPt.firstName} {thisPt.lastName}</h3>
-                        <a href={url} className="btn btn-secondary my-2">
-                          <h6 className="my-1">Profile</h6>
-                        </a>
-                        <button onClick={() => {setState('allOrders')}} className="btn btn-secondary my-2">
-                          <h6 className="my-1">All Orders</h6>
-                        </button>
-                        <button onClick={() => {setState('pendingOrders')}} className="btn btn-secondary my-2">
-                          <h6 className="my-1">Pending Orders</h6>
-                        </button>
-                        <button onClick={() => {setState('completeOrders')}} className="btn btn-secondary my-2">
-                          <h6 className="my-1">Complete Orders</h6>
-                        </button>
-                        <button onClick={() => {setState('glNew')}} className="btn btn-secondary my-2">
-                          <h6 className="my-1">New Glasses Order</h6>
-                        </button>
-                        <button onClick={() => {setState('clNew')}} className="btn btn-secondary my-2">
-                          <h6 className="my-1">New Contact Order</h6>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
                   {/* Patient Info */}
                   {state === 'profile' && (
                     <ProfileInfo />
