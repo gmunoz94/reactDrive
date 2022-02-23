@@ -4,17 +4,17 @@ import Axios from 'axios';
 import { PatientContext } from '../../components/Profile'
 
 
-const PendingOrder = () => {
+const CompleteOrder = () => {
     const thisPatient = useContext(PatientContext);
 
     const [glOrders, setGlOrders] = useState([]);
     const [clOrders, setClOrders] = useState([]);
 
     useEffect(() => {
-      Axios.get(`/api/orders/glOrder/${thisPatient.patient_id}/pending`).then((response) => {
+      Axios.get(`/api/orders/glOrder/${thisPatient.patient_id}/complete`).then((response) => {
         setGlOrders(response.data)
     })
-    Axios.get(`/api/orders/clOrder/${thisPatient.patient_id}/pending`).then((response) => {
+    Axios.get(`/api/orders/clOrder/${thisPatient.patient_id}/complete`).then((response) => {
         setClOrders(response.data)
       })
     }, [thisPatient.patient_id])
@@ -177,4 +177,4 @@ const PendingOrder = () => {
       )
 }
 
-export default PendingOrder;
+export default CompleteOrder;

@@ -7,15 +7,14 @@ import AllOrder from './profile/AllOrder';
 import ClOrderPage from "./profile/ClOrderPage.js";
 import PatientSidebar from './profile/PatientSideBar'
 import PendingOrder from "./profile/PendingOrder.js";
+import CompleteOrder from "./profile/CompleteOrder.js";
 
 export const PatientContext = React.createContext();
 export const PatientUpdateContext = React.createContext();
 
 const Profile = () => {
-  const { path, url } = useRouteMatch();
+  const { url } = useRouteMatch();
 
-	console.log('path', path);
-	console.log('url', url);
   const params = useParams();
   const currPt = params.patient_id;
 
@@ -49,6 +48,9 @@ const Profile = () => {
                     </Route>
                     <Route path={`${url}/pendingOrder`}>
                       <PendingOrder />
+                    </Route>
+                    <Route path={`${url}/completeOrder`}>
+                      <CompleteOrder />
                     </Route>
                     <Route path={`${url}/glNew`}>
                       <GlOrderPage />

@@ -22,6 +22,32 @@ router.post('/glOrder/:patient_id', (req, res) => {
     })
 })
 
+router.put('/glOrder/:patient_id/:order_id', (req, res) => {
+    glOrder.update({
+        orderDate: req.body.orderDate,
+        frameBrand: req.body.frameBrand,
+        frameModel: req.body.frameModel,
+        lensType: req.body.lensType,
+        location: req.body.location,
+        moreOrders: req.body.moreOrders,
+        lab: req.body.lab,
+        ordered: req.body.ordered,
+        arrival: req.body.arrival,
+        ready: req.body.ready,
+        received: req.body.received,
+        dispensed: req.body.dispensed
+        },
+        {
+            where: {
+                patient_id: req.params.patient_id,
+                order_id: req.params.order_id,
+            },
+        }
+    ).then((orderData) => {
+        res.json(orderData)
+    })
+})
+
 router.get('/glOrder/:patient_id', (req, res) => {
     glOrder.findAll({
         where: {
@@ -36,9 +62,18 @@ router.get('/glOrder/:patient_id/pending', (req, res) => {
     glOrder.findAll({
         where: {
             patient_id: req.params.patient_id,
-            [Op.not]: {
-                dispensed: 'yes'
-            }
+            dispensed: null
+        }
+    }).then((orderData) => {
+        res.json(orderData);
+    })
+})
+
+router.get('/glOrder/:patient_id/complete', (req, res) => {
+    glOrder.findAll({
+        where: {
+            patient_id: req.params.patient_id,
+            dispensed: 'yes'
         }
     }).then((orderData) => {
         res.json(orderData);
@@ -63,6 +98,33 @@ router.post('/clOrder/:patient_id', (req, res) => {
     })
 })
 
+router.put('/clOrder/:patient_id/:order_id', (req, res) => {
+    clOrder.update({
+        patient_id: req.body.patient_id,
+        orderDate: req.body.orderDate,
+        odBoxes: req.body.odBoxes,
+        odBoxType: req.body.odBoxType,
+        osBoxes: req.body.osBoxes,
+        osBoxType: req.body.osBoxType,
+        moreOrders: req.body.moreOrders,
+        lab: req.body.lab,
+        ordered: req.body.ordered,
+        arrival: req.body.arrival,
+        ready: req.body.ready,
+        received: req.body.received,
+        dispensed: req.body.dispensed
+        },
+        {
+            where: {
+                patient_id: req.params.patient_id,
+                order_id: req.params.order_id,
+            },
+        }
+    ).then((orderData) => {
+        res.json(orderData)
+    })
+})
+
 router.get('/clOrder/:patient_id', (req, res) => {
     clOrder.findAll({
         where: {
@@ -77,9 +139,18 @@ router.get('/clOrder/:patient_id/pending', (req, res) => {
     clOrder.findAll({
         where: [{
             patient_id: req.params.patient_id,
-            [Op.not]: {
-                dispensed: 'yes'
-            }
+            dispensed: null
+        }]
+    }).then((orderData) => {
+        res.json(orderData);
+    })
+})
+
+router.get('/clOrder/:patient_id/complete', (req, res) => {
+    clOrder.findAll({
+        where: [{
+            patient_id: req.params.patient_id,
+            dispensed: 'yes'
         }]
     }).then((orderData) => {
         res.json(orderData);

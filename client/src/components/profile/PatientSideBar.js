@@ -35,9 +35,9 @@ const Sidebar = () => {
 					</a>
 				</li>
 				<li>
-					<button className="nav-link">
+					<a href={`${url}/completeOrder`} className="nav-link">
 						Complete Orders
-					</button>
+					</a>
 				</li>
 				<li>
 					<a href={`${url}/glNew`} className="nav-link">
