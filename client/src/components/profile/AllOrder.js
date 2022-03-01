@@ -97,7 +97,9 @@ const AllOrder = () => {
                                   {r.dispensed}
                                 </td>
                                 <td>
-                                  <Button onClick={() => setModalShow(true)}>Edit</Button>
+                                  <Button onClick={() => {
+                                    setModalShow(true);
+                                  }}>Edit</Button>
                                 </td>
                               </tr>
                           ))}
