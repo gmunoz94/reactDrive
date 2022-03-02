@@ -14,7 +14,7 @@ const  ContactModal = (props) => {
     osBoxes: "",
     osBoxType: "",
     moreOrders: "",
-})
+  })
 
 const handleOrderSubmit = (event) => {
   event.preventDefault();
@@ -27,9 +27,9 @@ const handleOrderSubmit = (event) => {
     osBoxes: clOrder.osBoxes,
     osBoxType: clOrder.osBoxType,
     moreOrders: clOrder.moreOrders,
-  }).then(() => {
-    // props.setState('allOrders')
-  })
+    }).then(() => {
+      // props.setState('allOrders')
+    })
 }
 
 const handleInputChange = (event) => {
@@ -46,7 +46,7 @@ const handleInputChange = (event) => {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Modal heading
+            Edit Order
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

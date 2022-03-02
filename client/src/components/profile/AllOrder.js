@@ -3,6 +3,7 @@ import { Table, Row, Form, Button } from 'react-bootstrap';
 import Axios from 'axios';
 import { PatientContext } from '../../components/Profile'
 import ContactModal from '../ContactModal';
+import GlassesModal from '../GlassesModal';
 
 
 const AllOrder = () => {
@@ -10,7 +11,8 @@ const AllOrder = () => {
 
     const [glOrders, setGlOrders] = useState([]);
     const [clOrders, setClOrders] = useState([]);
-    const [modalShow, setModalShow] =   useState(false);
+    const [clModalShow, setClModalShow] =   useState(false);
+    const [glModalShow, setGlModalShow] =   useState(false);
 
 
     useEffect(() => {
@@ -34,8 +36,12 @@ const AllOrder = () => {
     return(
         <>
           <ContactModal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
+            show={clModalShow}
+            onHide={() => setClModalShow(false)}
+          />
+          <GlassesModal
+            show={glModalShow}
+            onHide={() => setGlModalShow(false)}
           />
           <div id="profile">
             <div className="card mb-3">
@@ -97,8 +103,11 @@ const AllOrder = () => {
                                   {r.dispensed}
                                 </td>
                                 <td>
-                                  <Button onClick={() => {
-                                    setModalShow(true);
+                                  <Button
+                                    patient={thisPatient.patient_id}
+                                    order={r.order_id} 
+                                    onClick={() => {
+                                    setGlModalShow(true);
                                   }}>Edit</Button>
                                 </td>
                               </tr>
@@ -172,7 +181,12 @@ const AllOrder = () => {
                                   {r.dispensed}
                                 </td>
                                 <td>
-                                  <Button value={r.order_id}>Edit</Button>
+                                  <Button 
+                                    patient={thisPatient.patient_id}
+                                    order={r.order_id} 
+                                    onClick={() => {
+                                      setClModalShow(true);
+                                    }}>Edit</Button>
                                 </td>
                               </tr>
                           ))}
