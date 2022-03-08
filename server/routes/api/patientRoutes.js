@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Op } = require('sequelize');
 
-const patient = require('../../models/patient');
+const patient = require('../../models/Patient');
 
 router.post('/', (req, res) => {
     patient.create({
