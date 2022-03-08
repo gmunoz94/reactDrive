@@ -11,9 +11,14 @@ const AllOrder = () => {
 
     const [glOrders, setGlOrders] = useState([]);
     const [clOrders, setClOrders] = useState([]);
-    const [clModalShow, setClModalShow] =   useState(false);
-    const [glModalShow, setGlModalShow] =   useState(false);
-
+    const [clModalShow, setClModalShow] =   useState({
+      open: false,
+      order: []
+    });
+    const [glModalShow, setGlModalShow] =   useState({
+      open: false,
+      order: []
+    });
 
     useEffect(() => {
       Axios.get(`/api/orders/glOrder/${thisPatient.patient_id}`).then((response) => {
@@ -36,12 +41,14 @@ const AllOrder = () => {
     return(
         <>
           <ContactModal
-            show={clModalShow}
-            onHide={() => setClModalShow(false)}
+            show={clModalShow.open}
+            order={clModalShow.order}
+            onHide={() => setClModalShow({ open: false, order: [] })}
           />
           <GlassesModal
-            show={glModalShow}
-            onHide={() => setGlModalShow(false)}
+            show={glModalShow.open}
+            order={glModalShow.order}
+            onHide={() => setGlModalShow({ open: false, order: [] })}
           />
           <div id="profile">
             <div className="card mb-3">
@@ -104,10 +111,8 @@ const AllOrder = () => {
                                 </td>
                                 <td>
                                   <Button
-                                    patient={thisPatient.patient_id}
-                                    order={r.order_id} 
                                     onClick={() => {
-                                    setGlModalShow(true);
+                                    setGlModalShow({ open: true, order: r });
                                   }}>Edit</Button>
                                 </td>
                               </tr>
@@ -182,10 +187,8 @@ const AllOrder = () => {
                                 </td>
                                 <td>
                                   <Button 
-                                    patient={thisPatient.patient_id}
-                                    order={r.order_id} 
                                     onClick={() => {
-                                      setClModalShow(true);
+                                      setClModalShow({ open: true, order: r });
                                     }}>Edit</Button>
                                 </td>
                               </tr>
