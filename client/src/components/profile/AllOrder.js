@@ -3,7 +3,7 @@ import { Table, Row, Form, Button } from 'react-bootstrap';
 import Axios from 'axios';
 import { PatientContext } from '../../components/Profile'
 import ContactModal from '../ContactModal';
-import GlassesModal from '../GlassesModal';
+import GlassesModal from '../modals/GlassesModal';
 
 
 const AllOrder = () => {
