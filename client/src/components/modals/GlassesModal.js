@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Form, Row, Col, Button, Modal } from 'react-bootstrap';
 import Axios from 'axios';
-import { PatientContext } from "./Profile";
+import { PatientContext } from "../Profile";
 
 const  GlassesModal = (props) => {
   const order = props.order;
