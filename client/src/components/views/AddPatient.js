@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Form, Row, Container, Col, Button } from 'react-bootstrap';
 import Axios from 'axios'
-import Sidebar from './SideBar';
+import Sidebar from './../SideBar';
 
 const AddPatient = () => {
   const [formData, setFormData] = useState({

@@ -8,7 +8,7 @@ const seedDatabase = async () => {
 
   const frames = await frame.bulkCreate(frameSeedData);
 
-
+  console.log(frames.length)
   process.exit(0);
 };
 

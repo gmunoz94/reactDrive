@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams, BrowserRouter as Router, Route, useRouteMatch } from "react-router-dom";
 import Axios from 'axios';
 import ProfileInfo from "./profile/ProfileInfo.js";
-import GlOrderPage from "./profile/GlOrderPage.js";
-import AllOrder from './profile/AllOrder';
-import ClOrderPage from "./profile/ClOrderPage.js";
+import GlOrderPage from "./profile/PtGlOrderPage.js";
+import PtAllOrder from './profile/PtAllOrder.js';
+import ClOrderPage from "./profile/PtClOrderPage.js";
 import PatientSidebar from './profile/PatientSideBar'
-import PendingOrder from "./profile/PendingOrder.js";
-import CompleteOrder from "./profile/CompleteOrder.js";
+import PendingOrder from "./profile/PtPendingOrder.js";
+import CompleteOrder from "./profile/PtCompleteOrder.js";
 
 export const PatientContext = React.createContext();
 export const PatientUpdateContext = React.createContext();
@@ -44,7 +44,7 @@ const Profile = () => {
                       <ProfileInfo />
                     </Route>
                     <Route path={`${url}/allOrder`}>
-                      <AllOrder />
+                      <PtAllOrder />
                     </Route>
                     <Route path={`${url}/pendingOrder`}>
                       <PendingOrder />

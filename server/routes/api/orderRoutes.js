@@ -3,6 +3,7 @@ const { Op } = require('sequelize');
 
 const clOrder = require('../../models/ClOrder');
 const glOrder = require('../../models/GlOrder');
+const patient = require('../../models/Patient.js');
 
 router.post('/glOrder/:patient_id', (req, res) => {
     console.log(req.body)
@@ -45,6 +46,27 @@ router.put('/glOrder/:patient_id/:order_id', (req, res) => {
         }
     ).then((orderData) => {
         res.json(orderData)
+    })
+})
+
+router.get('/glOrder/all', (req, res) => {
+    glOrder.findAll({
+    }).then((orderData) => {
+        patient.findAll()
+        .then((patientData) => {
+            const dataToSend = JSON.parse(JSON.stringify(orderData));
+
+            dataToSend.map(function (d, i) {
+                d.patient_id = (patientData.filter(function (d1) {
+                    if (d1.patient_id == d.patient_id) {
+                        return d1;
+                    }
+                })).map(function(d2) {
+                    return {firstName: d2.firstName, lastName: d2.lastName}
+                });
+            })
+            res.json(dataToSend)
+        })
     })
 })
 
@@ -122,6 +144,31 @@ router.put('/clOrder/:patient_id/:order_id', (req, res) => {
         }
     ).then((orderData) => {
         res.json(orderData)
+    })
+})
+
+router.get('/clOrder/all', (req, res) => {
+    clOrder.findAll({
+    }).then((orderData) => {
+        const receivedPatient = orderData[0].dataValues.patient_id
+        patient.findAll({
+            where: {
+                patient_id: receivedPatient
+            }
+        }).then((patientData) => {
+            const dataToSend = JSON.parse(JSON.stringify(orderData));
+
+            dataToSend.map(function (d, i) {
+                d.patient_id = (patientData.filter(function (d1) {
+                    if (d1.parentId == d.id) {
+                        return d1;
+                    }
+                })).map(function(d2) {
+                    return {firstName: d2.firstName, lastName: d2.lastName}
+                });
+            })
+            res.json(dataToSend)
+        })
     })
 })
 

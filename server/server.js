@@ -5,10 +5,10 @@ const sequelize = require('./config/connection');
 const routes = require('./routes');
 
 
-const patient = require('./models/patient');
-const glOrder = require('./models/glOrder');
-const clOrder = require('./models/clOrder');
-const frame = require('./models/frame');
+const patient = require('./models/Patient');
+const glOrder = require('./models/GlOrder');
+const clOrder = require('./models/ClOrder');
+const frame = require('./models/Frame');
 
 const app = express();
 const PORT = process.env.PORT || 3001;

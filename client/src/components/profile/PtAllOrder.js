@@ -1,30 +1,30 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Table, Row, Form, Button } from 'react-bootstrap';
 import Axios from 'axios';
-import { PatientContext } from '../../components/Profile'
+import { PatientContext } from '../Profile'
 import ContactModal from '../modals/ContactModal';
 import GlassesModal from '../modals/GlassesModal';
 
 
-const PendingOrder = () => {
+const PtAllOrder = () => {
     const thisPatient = useContext(PatientContext);
 
     const [glOrders, setGlOrders] = useState([]);
     const [clOrders, setClOrders] = useState([]);
-    const [clModalShow, setClModalShow] =   useState({
+    const [clModalShow, setClModalShow] =  useState({
       open: false,
       order: []
     });
-    const [glModalShow, setGlModalShow] =   useState({
+    const [glModalShow, setGlModalShow] =  useState({
       open: false,
       order: []
     });
 
     useEffect(() => {
-      Axios.get(`/api/orders/glOrder/${thisPatient.patient_id}/pending`).then((response) => {
+      Axios.get(`/api/orders/glOrder/${thisPatient.patient_id}`).then((response) => {
         setGlOrders(response.data)
-    })
-    Axios.get(`/api/orders/clOrder/${thisPatient.patient_id}/pending`).then((response) => {
+      })
+      Axios.get(`/api/orders/clOrder/${thisPatient.patient_id}`).then((response) => {
         setClOrders(response.data)
       })
     }, [thisPatient.patient_id])
@@ -75,7 +75,7 @@ const PendingOrder = () => {
                         </thead>
                         <tbody>
                           {glOrders.map((r) => (
-                              <tr>
+                              <tr key={r.order_id}>
                                 <td>
                                   {r.orderDate}
                                 </td>
@@ -110,7 +110,7 @@ const PendingOrder = () => {
                                   {r.dispensed}
                                 </td>
                                 <td>
-                                <Button
+                                  <Button
                                     onClick={() => {
                                     setGlModalShow({ open: true, order: r });
                                   }}>Edit</Button>
@@ -148,7 +148,7 @@ const PendingOrder = () => {
                         </thead>
                         <tbody>
                           {clOrders.map((r) => (
-                              <tr>
+                              <tr key={r.order_id}>
                                 <td>
                                   {r.orderDate}
                                 </td>
@@ -186,10 +186,10 @@ const PendingOrder = () => {
                                   {r.dispensed}
                                 </td>
                                 <td>
-                                <Button 
+                                  <Button 
                                     onClick={() => {
                                       setClModalShow({ open: true, order: r });
-                                  }}>Edit</Button>
+                                    }}>Edit</Button>
                                 </td>
                               </tr>
                           ))}
@@ -205,4 +205,4 @@ const PendingOrder = () => {
       )
 }
 
-export default PendingOrder;
+export default PtAllOrder;

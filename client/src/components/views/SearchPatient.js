@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Axios from 'axios';
 import { Container, Form, Row, Col, Button, Table } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import Sidebar from './SideBar';
+import Sidebar from './../SideBar';
 
 const SearchPatient = () =>{
 	const [searchData, setSearchData] = useState({

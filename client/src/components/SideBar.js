@@ -1,6 +1,13 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
 
 const Sidebar = () => {
+
+	const {
+		loginWithRedirect,
+		logout,
+		isAuthenticated
+	} = useAuth0();
 
 	return(
 		<div className="col-lg-2 d-flex flex-column flex-shrink-0 text-white bg-dark" >
@@ -36,7 +43,12 @@ const Sidebar = () => {
 					<li><a className="dropdown-item" href="/settings">Settings</a></li>
 					<li><a className="dropdown-item" href="/user">Profile</a></li>
 					<li><hr className="dropdown-divider" /></li>
-					<li><a className="dropdown-item" href="/signout">Sign out</a></li>
+					{ !isAuthenticated && (
+					<li><p className="dropdown-item" onClick={() => loginWithRedirect()}>Sign In</p></li>
+					)}
+					{ isAuthenticated && (
+					<li><p className="dropdown-item" onClick={() => logout()}>Sign out</p></li>
+					)}
 				</ul>
 			</div>
 		</div>
