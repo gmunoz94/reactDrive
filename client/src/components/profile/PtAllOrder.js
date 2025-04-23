@@ -4,13 +4,28 @@ import Axios from 'axios';
 import { PatientContext } from '../Profile'
 import ContactModal from '../modals/ContactModal';
 import GlassesModal from '../modals/GlassesModal';
+import UpdateGlOrderModal from '../modals/UpdateGlOrderModal';
 
 
 const PtAllOrder = () => {
     const thisPatient = useContext(PatientContext);
-
+    // console.log(thisPatient)
+    const [frames, setFrames] = useState([]);
     const [glOrders, setGlOrders] = useState([]);
     const [clOrders, setClOrders] = useState([]);
+    
+    useEffect(() => {
+      Axios.get(`/api/orders/glOrder/${thisPatient.patient_id}`).then((response) => {
+        setGlOrders(response.data)
+      })
+      Axios.get(`/api/orders/clOrder/${thisPatient.patient_id}`).then((response) => {
+        setClOrders(response.data)
+      })
+      Axios.get(`/api/frames`).then((response) => {
+        setFrames(response.data)
+      })
+    }, [thisPatient.patient_id])
+    
     const [clModalShow, setClModalShow] =  useState({
       open: false,
       order: []
@@ -19,16 +34,10 @@ const PtAllOrder = () => {
       open: false,
       order: []
     });
-
-    useEffect(() => {
-      Axios.get(`/api/orders/glOrder/${thisPatient.patient_id}`).then((response) => {
-        setGlOrders(response.data)
-      })
-      Axios.get(`/api/orders/clOrder/${thisPatient.patient_id}`).then((response) => {
-        setClOrders(response.data)
-      })
-    }, [thisPatient.patient_id])
-
+    const [updateGlOrderModalShow, setUpdateGlOrderModalShow] =  useState({
+      open: false,
+      order: [],
+    });
     // const handleOrderUpdate = () => {
 
     // }
@@ -49,6 +58,12 @@ const PtAllOrder = () => {
             show={glModalShow.open}
             order={glModalShow.order}
             onHide={() => setGlModalShow({ open: false, order: [] })}
+          />
+          <UpdateGlOrderModal
+            show={updateGlOrderModalShow.open}
+            order={updateGlOrderModalShow.order}
+            framemodel={frames}
+            onHide={() => setUpdateGlOrderModalShow({ open: false, order: [] })}
           />
           <div id="profile">
             <div className="card mb-3">
@@ -76,43 +91,44 @@ const PtAllOrder = () => {
                         <tbody>
                           {glOrders.map((r) => (
                               <tr key={r.order_id}>
-                                <td>
+                                <td key={"orderDate"}>
                                   {r.orderDate}
                                 </td>
-                                <td>
+                                <td key={"frameBrand"}>
                                   {r.frameBrand} {r.frameModel}
                                 </td>
-                                <td>
+                                <td key={"lensType"}>
                                   {r.lensType}
                                 </td>
-                                <td>
+                                <td key={"location"}>
                                   {r.location}
                                 </td>
-                                <td>
+                                <td key={"moreOrders"}>
                                   {r.moreOrders}
                                 </td>
-                                <td>
+                                <td key={"lab"}>
                                   {r.lab}
                                 </td>
-                                <td>
+                                <td key={"ordered"}>
                                   {r.ordered}
                                 </td>
-                                <td>
+                                <td key={"arrived"}>
                                   {r.arrived}
                                 </td>
-                                <td>
+                                <td key={"ready"}>
                                   {r.ready}
                                 </td>
-                                <td>
+                                <td key={"received"}>
                                   {r.received}
                                 </td>
-                                <td>
+                                <td key={"dispensed"}>
                                   {r.dispensed}
                                 </td>
                                 <td>
                                   <Button
                                     onClick={() => {
-                                    setGlModalShow({ open: true, order: r });
+                                      // console.log(glOrders)
+                                      setUpdateGlOrderModalShow({ open: true, order: {r} });
                                   }}>Edit</Button>
                                 </td>
                               </tr>

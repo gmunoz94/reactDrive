@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
-import { PatientContext } from "../Profile";
+import React from "react";
+// import { PatientContext } from "../Profile";
 import { useRouteMatch } from "react-router-dom";
 
 
-const Sidebar = () => {
-	const thisPatient = useContext(PatientContext);
+const Sidebar = ({thisPatient}) => {
+	// const thisPatient = useContext(PatientContext);
 	const { url } = useRouteMatch();
 
 	// console.log('path', path);

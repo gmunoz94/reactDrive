@@ -4,8 +4,8 @@ import Axios from 'axios';
 import { PatientContext } from "../Profile";
 
 const  GlassesModal = (props) => {
-  const order = props.order;
-  console.log(order)
+  // const order = props.order;
+  // console.log(order)
 
   const thisPatient = useContext(PatientContext);
 

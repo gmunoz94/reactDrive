@@ -34,29 +34,29 @@ const Profile = () => {
   return( 
     <PatientContext.Provider value={thisPt}>
       <PatientUpdateContext.Provider value={handleInputChange}>
-        <PatientSidebar />
+        <PatientSidebar thisPatient={thisPt}/>
         <div className="col-lg-10 mt-2 px-2">
           <section className="container-fluid bg-dark p-4 rounded-1">
               <div className="main-body">
                   <Router>
                     {/* Patient Info */}
                     <Route exact path={`${url}`}>
-                      <ProfileInfo />
+                      <ProfileInfo thisPatient={thisPt} setThisPt={setThisPt}/>
                     </Route>
                     <Route path={`${url}/allOrder`}>
-                      <PtAllOrder />
+                      <PtAllOrder thisPatient={thisPt} />
                     </Route>
                     <Route path={`${url}/pendingOrder`}>
-                      <PendingOrder />
+                      <PendingOrder thisPatient={thisPt} />
                     </Route>
                     <Route path={`${url}/completeOrder`}>
-                      <CompleteOrder />
+                      <CompleteOrder thisPatient={thisPt} />
                     </Route>
                     <Route path={`${url}/glNew`}>
-                      <GlOrderPage />
+                      <GlOrderPage thisPatient={thisPt} />
                     </Route>
                     <Route path={`${url}/clNew`}>
-                      <ClOrderPage />
+                      <ClOrderPage thisPatient={thisPt} />
                     </Route>
                   </Router>
               </div>
