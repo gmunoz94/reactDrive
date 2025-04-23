@@ -7,7 +7,7 @@ const requestData = {
   'client_secret': process.env.CONSUMER_SECRET,
 }
 
-axios.post('https://resilient-goat-4hxsg-dev-ed.trailblaze.lightning.force.com/services/oauth2/authorize?response_type=token&client_id=SalesforceConnector&redirect_uri=your_redirect_uri', {
+axios.post('https://orgfarm-9ad4826d90-dev-ed.develop.lightning.force.com/services/oauth2/authorize?response_type=token&client_id=SalesforceConnector&redirect_uri=http://localhost:3000', {
     requestData
 })
 .then(response => {

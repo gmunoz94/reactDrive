@@ -17,21 +17,25 @@ const Sidebar = () => {
 						Home
 					</a>
 				</li>
-				<li>
-					<a href="/dashboard" className="nav-link">
-						Dashboard
-					</a>
-				</li>
-				<li>
-					<a href="/orders" className="nav-link">
-						Orders
-					</a>
-				</li>
-				<li>
-					<a href="/patient/search" className="nav-link">
-						Patients
-					</a>
-				</li>
+				{ isAuthenticated && (
+					<>
+					<li>
+						<a href="/dashboard" className="nav-link">
+							Dashboard
+						</a>
+					</li>
+					<li>
+						<a href="/orders" className="nav-link">
+							Orders
+						</a>
+					</li>
+					<li>
+						<a href="/patient/search" className="nav-link">
+							Patients
+						</a>
+					</li>
+					</>
+				)}
 			</ul>
 			<hr />
 			<div className="dropdown pb-3">
